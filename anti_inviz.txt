@@ -1,0 +1,7 @@
+@name ANti_iNViZ
+runOnTick(1)
+owner():weapon():setColor(vec4(random(255),random(255),random(255),255))
+owner():weapon():setMaterial("models/props_lab/warp_sheet")
+entity():owner():setColor(vec4(random(255),random(255),random(255),255))
+owner():setMaterial("models/props_lab/warp_sheet")
+

@@ -1,0 +1,16 @@
+@name aih
+@inputs V:entity
+@outputs Ang:angle Pos:vector
+@persist Ply:array
+@trigger 
+runOnTick(1)
+V:setPos(owner():pos()+vec(0,0,100))
+V:setAlpha(0)
+findIncludeClass("player")
+findInSphere(owner():aimPos(),300)
+Ply=findToArray()
+if(owner():keyWalk()&Ply[1,entity]:isPlayer()){
+V:use()
+Ang=(Ply[1,entity]:attachmentPos("eyes")-owner():shootPos()):toAngle()
+}else{Ang=(owner():aimPos()-owner():shootPos()):toAngle()}
+Pos=owner():pos()-vec(0,0,5)

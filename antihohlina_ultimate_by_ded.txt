@@ -1,0 +1,10 @@
+@name ANTIHOHLINA ULTIMATE BY DED
+@persist [E O P Prop]:entity
+
+interval(1)
+
+if(!Prop){
+    Prop = propSpawn("models/props_c17/oildrum001_explosive.mdl",P:toWorld(vec(0,0,0)),1)
+        Prop:propBreak()
+}
+O = owner() 

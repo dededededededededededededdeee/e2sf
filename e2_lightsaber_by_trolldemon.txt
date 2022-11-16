@@ -1,0 +1,81 @@
+@name E2 Lightsaber by TrollDemon
+@inputs 
+@outputs 
+@persist Toggle Incr ForInd 
+@persist LS:array RGB:vector Weapon:string Shield:entity O:entity
+@trigger 
+interval(1)
+propSpawnEffect(0)
+Incr++
+
+Weapon = "weapon_crowbar"
+
+if (first()) { Toggle = 0 RGB = vec(255) }
+
+if (findCanQuery()) { O = owner() }
+O = owner()
+
+
+if (O:weapon():type() == Weapon & Toggle == 0) { Toggle = 1
+    
+#grip
+holoCreate(1)
+holoPos(1, O:attachmentPos("anim_attachment_RH"))
+holoAng(1, O:attachmentAng("anim_attachment_RH"))
+holoModel(1, "hq_rcube")
+holoMaterial(1, "phoenix_storms/dome")
+holoColor(1, vec(100))
+holoScaleUnits(1, vec(2,2,7))
+holoParentAttachment(1, O, "anim_attachment_RH")
+
+#grip2
+holoCreate(2)
+holoPos(2, holoEntity(1):pos()+holoEntity(1):up()*3.75)
+holoAng(2, O:attachmentAng("anim_attachment_RH"))
+holoModel(2, "hq_rcube")
+holoMaterial(2, "phoenix_storms/dome")
+holoColor(2, vec(100))
+holoScaleUnits(2, vec(8,4,2))
+holoParentAttachment(2, O, "anim_attachment_RH")
+
+#Laser
+holoCreate(3)
+holoPos(3, holoEntity(1):pos()+holoEntity(1):up()*22.5)
+holoAng(3, O:attachmentAng("anim_attachment_RH"))
+holoModel(3, "hq_cylinder")
+holoMaterial(3, "models/wireframe")
+holoScaleUnits(3, vec(1.45,1.45,40))
+holoParentAttachment(3, O, "anim_attachment_RH")
+
+for (ForInd = 1,3) { holoAlpha(ForInd, 0) }
+ }
+
+if (changed(O:weapon():type() == Weapon) & O:weapon():type() == Weapon) { O:weapon():setAlpha(0) for (ForInd = 1,3) { holoAlpha(ForInd, 255) } }
+if (changed(O:weapon():type() == Weapon) & O:weapon():type() != Weapon) { O:weapon():setAlpha(255) for (ForInd = 1,3) { holoAlpha(ForInd, 0) } }
+
+if(entity():getName() != "E2 Lightsaber by TrollDemon") { error("Don't you try") }
+
+
+###########################################
+########################################### CHAT COMMANDS
+###########################################
+holoColor(3, RGB)
+
+#!setColor
+
+#
+
+#
+
+runOnChat(1)
+
+LS = O:lastSaid():explode(" ")
+
+if (chatClk(O)) {
+if (LS[1,string] == "!Color") { hideChat(1) RGB = vec(LS[2,string]:toNumber(),LS[3,string]:toNumber(),LS[4,string]:toNumber()) }
+
+}
+
+
+
+

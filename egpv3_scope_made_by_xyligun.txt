@@ -1,0 +1,17 @@
+@name EGPV3 SCOPE MADE BY XYLIGUN
+@inputs Egp:wirelink
+@persist 
+runOnTick(1)
+O=owner()
+Size=15
+if(O:aimEntity():isPlayer()){
+    Egp:egpColor(1,vec(255,0,0))
+    Egp:egpColor(2,vec(255,0,0))
+}else{
+    Egp:egpColor(1,vec(255,255,255))
+    Egp:egpColor(2,vec(255,255,255))
+}
+Egp:egpBox(1,vec2(egpScrW(O)/2,egpScrH(O)/2),vec2(Size,2))
+Egp:egpBox(2,vec2(egpScrW(O)/2,egpScrH(O)/2),vec2(2,Size))
+ 
+if(duped()){selfDestructAll()} 

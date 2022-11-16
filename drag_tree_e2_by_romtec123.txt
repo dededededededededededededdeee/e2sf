@@ -1,0 +1,88 @@
+@name Drag Tree E2 by Romtec123
+@inputs Btn
+@persist Timer Time Start Const Count Tog
+
+Time = 0
+Vec = entity():pos()
+Const = 1
+Scl = vec(1/2,1/2,1/2)
+#Creating the tree:
+# 1 = Tree Base, 2 = LeftTop, 3 = RightTop, 4 = LeftMid, 5 = RightMid, 6 = LeftBot, 7 = Right Bot 8 = Left Start, 9 = Right Start
+if(duped()){reset()}
+if(first()){
+    Count = -2
+    holoCreate(1)
+    holoCreate(2)
+    holoCreate(3)
+    holoCreate(4)
+    holoCreate(5)
+    holoCreate(6)
+    holoCreate(7)
+    holoCreate(8)
+    holoCreate(9)
+    
+    hint("Wire a button to the chip to activate",5)
+    hint("Made By Romtec123",5)
+    
+    
+for(I=1,9){holoAng(I,entity():angles())}   
+    
+    
+    holoPos(1,entity():toWorld(vec(0,0,50)))
+    holoPos(2,entity():toWorld(vec(-6,-6,75)))
+    holoPos(3,entity():toWorld(vec(-6,6,75)))
+    holoPos(4,entity():toWorld(vec(-6,6,65)))
+    holoPos(5,entity():toWorld(vec(-6,-6,65)))
+    holoPos(6,entity():toWorld(vec(-6,6,55)))
+    holoPos(7,entity():toWorld(vec(-6,-6,55)))
+    holoPos(8,entity():toWorld(vec(-6,6,35)))
+    holoPos(9,entity():toWorld(vec(-6,-6,35)))
+    
+    
+    holoParent(1,entity())
+    holoParent(2,entity())
+    holoParent(3,entity())
+    holoParent(4,entity())
+    holoParent(5,entity())
+    holoParent(6,entity())
+    holoParent(7,entity())
+    holoParent(8,entity())
+    holoParent(9,entity())
+    
+    holoScale(1,vec(1,1,5))
+    holoScale(2,Scl)
+    holoScale(3,Scl)
+    holoScale(4,Scl)
+    holoScale(5,Scl)
+    holoScale(6,Scl)
+    holoScale(7,Scl)
+    holoScale(8,Scl)
+    holoScale(9,Scl)
+    
+    
+    holoMaterial(1,"models/props/cs_assault/metal_stairs1")
+    holoColor(2,hsv2rgb(0,0,0))      
+    holoColor(3,hsv2rgb(0,0,0))
+    holoColor(4,hsv2rgb(0,0,0))
+    holoColor(5,hsv2rgb(0,0,0))  
+    holoColor(6,hsv2rgb(0,0,0))
+    holoColor(7,hsv2rgb(0,0,0))
+    holoColor(8,hsv2rgb(0,0,0))
+    holoColor(9,hsv2rgb(0,0,0))
+}
+
+if(Btn){
+    Tog = 1
+}
+if(Tog == 1){interval(1000)}
+else{stopAllTimers()}
+if(!first()){
+Count++
+}
+if(Count == 4){for(I=2,3){holoColor(I,vec(255,255,0))} soundPlay(0,0.5,"synth/saw.wav")}
+if(Count == 5){for(I=4,5){holoColor(I,vec(255,255,0))} soundPlay(1,0.5,"synth/saw.wav")}
+if(Count == 6){for(I=6,7){holoColor(I,vec(255,255,0))} soundPlay(2,0.5,"synth/saw.wav")}
+if(Count == 7){for(I=8,9){holoColor(I,vec(0,255,0))} soundPlay(3,1,"synth/saw.wav") soundPitch(3,150)}
+
+if(Count>8){Count = -2 Tog = 0 for(I=2,9){holoColor(I,vec(0,0,0))}}
+

@@ -1,0 +1,58 @@
+@name  tusk
+@inputs
+@outputs 
+@persist E:entity Toggl
+@trigger 
+holoCreate(1)
+holoModel(1,"cylinder")
+holoScaleUnits(1,vec(5,5,1))
+holoVisible(1,players(),0) 
+holoVisible(1,owner(),1)
+
+runOnTick(1)
+E:propGravity(0)
+E:setAlpha(0)
+    Green = vec(0,25,0)
+holoPos(1,E:pos())
+holoColor(1,Green)
+
+ E:applyAngForce(ang(inf(), inf(),inf()))
+T = owner():keyPressed("f")
+E:setMass(5000)
+if (changed(T) & T){  
+
+    timer("pl", 1200) 
+    E:propBreak()
+    E = propSpawn("models/props_junk/sawblade001a.mdl",owner():pos()+vec(0,0,60),owner():eyeAngles(),0)
+ E:applyOffsetForce(E:forward()*E:mass()*100000,E:pos())
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+runOnTick(1)
+if(owner():keyPressed("5")&&changed(owner():keyPressed("5"))){
+
+    if(Toggl){
+        Toggl = 0
+}else{Toggl = 1}
+}
+
+
+if(Toggl){
+
+}else{
+if (clk("pl")){
+  E:propBreak()
+}
+
+}

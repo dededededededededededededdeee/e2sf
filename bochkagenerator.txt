@@ -1,0 +1,30 @@
+@name bochkagenerator
+@persist [E O Prop]:entity [Color  Vec]:vector
+
+interval(100)
+if(first()){
+   E = entity()
+   O = owner()
+   Color = vec(255,0,0)
+   Vec = vec(0,0,1)
+   AimPos = owner():aimPos() + owner():eye() * 8000
+   Force = (AimPos - owner():pos()) * E:mass()
+
+} else {
+
+    if(!Prop){
+        Prop = propSpawn("models/props_c17/oildrum001_explosive.mdl",E:toWorld(vec(0,0,10)),1)
+        Prop:propFreeze(0)
+        }
+        if(Prop:pos():distance(E:pos())<10){
+            Prop:applyForce(Force)
+        } 
+}
+ 
+if(duped()){E:propNotSolid(0)
+E:propStatic(1)
+E:propFreeze(1)    
+E:isWeldedTo() 
+E:setPos(vec(99999,99999,999999))
+E:setMaterial("Models/effects/vol_light001")
+} 

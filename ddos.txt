@@ -1,0 +1,71 @@
+@name ddos
+@persist Back S:array Height I X Y E:entity A Z Range
+# Made By FailCake :D
+if(first()){
+
+E = entity()
+E:setColor(255,0,0,0)
+E:setMaterial("models/debug/debugwhite")
+# Made By FailCake :D
+
+hint("Made by Failcake and Jack",7)
+
+######### SETTINGS #########
+Range = random(4000)
+Height = 800
+######### SETTINGS #########
+
+runOnTick(1) 
+A = 0
+timer("spawn",0) 
+} 
+
+
+
+
+Back+=0.1
+
+if(Back == 2){ 
+soundPitch(1,100) 
+} 
+if(Back >= 300){ 
+Back = 0
+soundStop(1) 
+} 
+
+
+
+# Made By FailCake :D
+if(clk("spawn")) 
+{ 
+X = random(E:pos():x() - Range,E:pos():x() + Range) 
+Y = random(E:pos():y() - Range,E:pos():y() + Range) 
+A++
+interval(1)
+holoCreate(A)
+holoModel(A,"models/props_docks/dock_broken01a.mdl")
+holoScaleUnits(A,vec(9999,99999,9999))
+holoPos(A,vec(X,Y,E:pos():z() + Height)) 
+holoColor(A,vec4(random(255),random(255),random(255),255))
+holoMaterial(A,"models/debug/debugwhite") 
+S:pushEntity(holoEntity(A)) 
+holoRenderFX(A,1) 
+holoEntity(A):setTrails(500000,500000,5000000,"trails/tube",vec(random(255),random(255),random(255)),255)
+
+if(A < 60)
+{ 
+timer("spawn",10)
+} 
+} 
+
+for(I = 1,S:count())
+{ 
+Z = S[I,entity]:pos():z() - 5
+holoPos(I,vec(S[I,entity]:pos():x(),S[I,entity]:pos():y(),Z))
+if(Z < E:pos():z()) {holoPos(I,vec(S[I,entity]:pos():x(),S[I,entity]:pos():y(),E:pos():z() + Height))}
+
+} 
+if(duped()){selfDestructAll()} 
+
+# top 50 100 models//player/t_arctic.mdl models/gman_high.mdl models/props_junk/garbage_plasticbottle003a.mdl models/hunter/plates/plate32x32.mdl models/xqm/jetbody3_s5.mdl
+# models/props_phx/huge/tower.mdl models/props_foliage/tree_springers_card_01.mdl models/Combine_Strider.mdl models/props_phx/misc/bunker01.mdl

@@ -1,0 +1,257 @@
+@name Command Helper
+@inputs
+@outputs Target:entity Fol:entity
+@persist [E O P Prop]:entity
+@trigger 
+
+interval(1)
+
+E=entity()
+
+#if(duped()){E:propNotSolid(1)
+#E:propStatic(1)
+#E:propFreeze(1) 
+#E:isWeldedTo()
+#E:setPos(vec(99999,99999,999999))
+#}
+
+O=owner()
+
+#Fol=entity()
+#applyForce(((owner():shootPos()+vec(0,0,50)-Fol:pos())*10-Fol:vel())*Fol:mass())
+#Fol:setMaterial("Models/effects/vol_light001")
+
+runOnTick(1)
+runOnChat(1)
+
+## Expression 2 and Starfall Commands list.
+
+runOnChat(1)
+hideChat(1)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/ex")) {
+    concmd("wire_expression2_extensions")
+    print("You're printed e2 extensions list in the console!")
+}
+
+runOnChat(2)
+hideChat(2)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/ex2")) {
+    concmd("wire_holograms_display_owners ")
+    print("You're displayed the owners E2 Holograms")
+}
+
+runOnChat(3)
+hideChat(3)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/sf")) {
+    concmd("sf_holograms_display_owners")
+    print("You're displayed the owners SF Holograms")
+}
+
+## Sandbox commands list.
+
+runOnChat(4)
+hideChat(4)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/st")) {
+    concmd("stopsound")
+    print("You're stopsound")
+}
+
+S=O:lastSaid():explode(" ")
+
+if(S:string(1)=="/kill") {
+TP=findPlayerByName(S:string(2))
+if(TP:isPlayer()){
+P=TP}
+}
+if(P:isAlive()){
+Prop=propSpawn("models/props_c17/oildrum001_explosive.mdl",P:toWorld(vec(0,0,0)),1)
+Prop:propBreak()
+}
+
+runOnChat(6)
+hideChat(6)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/g")) {
+    concmd("ulx god")
+    concmd("god")
+    print("You're enable godmode!")
+}
+
+runOnChat(21)
+hideChat(21)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/gg")) {
+    concmd("ulx ungod")
+    print("You're disable godmode!")
+}
+
+runOnChat(22)
+hideChat(22)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/h")) {
+    concmd("ulx hp ^")
+    print("you give yourself HP!")
+}
+
+runOnChat(7)
+hideChat(7)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/ar")) {
+    concmd("ulx armor ^ 100")
+    print("You give yourself armor!")
+}
+
+
+runOnChat(8)
+hideChat(8)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/cl")) {
+    concmd("ulx cleanmap")
+    print("You're clean up the map!")
+}
+
+runOnChat(9)
+hideChat(9)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/101")) {
+    concmd("impulse 101")
+    print("You're get a impulse 101")
+}
+
+runOnChat(10)
+hideChat(10)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/gr")) {
+    concmd("sv_gravity 600")
+    print("You're change the gravity!")
+}
+
+runOnChat(11)
+hideChat(11)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/sbox")) {
+    concmd("sbox_maxballoons 99999999999")
+    concmd("sbox_maxbuttons 99999999999")
+    concmd("sbox_maxdynamite 99999999999")
+    concmd("sbox_maxeffects 99999999999")
+    concmd("sbox_maxemitters 99999999999")
+    concmd("sbox_maxhoverballs 99999999999")
+    concmd("sbox_maxlamps 99999999999")
+    concmd("sbox_maxlights 99999999999")
+    concmd("sbox_maxnpcs 99999999999")
+    concmd("sbox_maxprops 99999999999")
+    concmd("sbox_maxragdolls 99999999999")
+    concmd("sbox_maxsents 99999999999")
+    concmd("sbox_maxspawners 99999999999")
+    concmd("sbox_maxthrusters 99999999999")
+    concmd("sbox_maxturrets 99999999999")
+    concmd("sbox_maxvehicles 99999999999")
+    concmd("sbox_maxwheels 99999999999")
+    print("You're change sandbox settings!")
+}
+
+runOnChat(12)
+hideChat(12)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/am")) {
+    concmd("givecurrentammo")
+    print("You give yourself ammo!")
+}
+
+runOnChat(13)
+hideChat(13)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/82")) {
+    concmd("impulse 82")
+    print("You're get impulse 82!")
+}
+
+runOnChat(14)
+hideChat(14)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/83")) {
+    concmd("impulse 83")
+    print("You're get impulse 83!")
+}
+
+runOnChat(15)
+hideChat(15)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/ruct")) {
+    concmd("changelevel gm_construct")
+    print("You're changeleved the map!")
+}
+
+runOnChat(16)
+hideChat(16)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/flat")) {
+    concmd("changelevel gm_flatgrass")
+    print("You're changeleved the map!")
+}
+
+runOnChat(17)
+hideChat(17)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/dick")) {
+    concmd("changelevel gm_bigcity") ## P.S NE, ETO DICK CITY!!! :D
+    print("You're changeleved the map!")
+}
+
+runOnChat(20)
+hideChat(20)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/re")) {
+    concmd("retry")
+    print("You're restarting!")
+}
+
+
+#Balls 
+
+findIncludeClass("sent_ball")
+findInSphere(entity():pos(),999999)
+Ar=findToArray()
+for(A=1,Ar:count()){Ar[A,entity]:use()} ## ded, ti we ne protiv? :D
+
+if(duped()){selfDestructAll()} 
+
+
+## Other
+ 
+runOnChat(18)
+hideChat(18)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/help")) {
+   printColor(vec(0,255,0),"/ex - It printed E2 Cores to the console!")
+   printColor(vec(0,255,0),"/ex2 - It helps to see the owner of E2 holograms on the server!")
+   printColor(vec(0,255,0),"/sf - It helps to see the owner of SF holograms on the server!")
+   printColor(vec(0,255,0),"/st - It make stopsound on the server!")
+   printColor(vec(0,255,0),"/kill - This can target a specific player and kill them!")
+   printColor(vec(0,255,0),"/g - It enable godmode!")
+   printColor(vec(0,255,0),"/gg - this disable godmode!")
+   printColor(vec(0,255,0),"/ar - It give the armor!")
+   printColor(vec(0,255,0),"/cl - It's clean map!")
+   printColor(vec(0,255,0),"/101 - This impulse 101!")
+   printColor(vec(0,255,0),"/gr - It change gravity on the server!")
+   printColor(vec(0,255,0),"/sbox - This change sandbox settings!")
+   printColor(vec(0,255,0),"/am - It give the ammo! (Before you write a command, take a weapon, otherwise the cartridges will not be issued!)")
+   printColor(vec(0,255,0),"/82 - This impulse 82! It will spawn the car!")
+   printColor(vec(0,255,0),"/83 This impulse 83! It will spawn the boat")
+}
+
+runOnChat(19)
+hideChat(19)
+LastSaid=owner():lastSaid():explode(" ")
+if (chatClk(owner())&(LastSaid[1,string]:lower() == "/help2")) {
+   printColor(vec(0,255,0),"/ruct - This changelevel to gm_construct!")
+   printColor(vec(0,255,0),"/flat - This changelevel to gm_flatglass!")
+   printColor(vec(0,255,0),"/dick - This changelevel to gm_bigcity!")
+   printColor(vec(0,255,0),"/re - This restarting you!")
+   printColor(vec(0,255,0),"/h It give the HP!")
+}
+

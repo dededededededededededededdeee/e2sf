@@ -1,0 +1,59 @@
+@name Easy Jail by Hllm
+@persist Prop:array S:array Player:array
+if(first()||duped())
+{
+    hint("/help for help",3)
+    runOnTick(1)
+    runOnChat(1)
+}
+####
+S = owner():lastSaid():explode(" ")
+if(chatClk()&&S:string(1) =="/jail")
+{
+     TempPlayer = findPlayerByName(S:string(2)) 
+    hideChat(1)
+    if(TempPlayer:isPlayer())
+    {
+         Prop[Prop:count()+1,entity]=propSpawn("models\hunter\blocks\cube05x2x05.mdl",vec(0,0,0),1)    
+         Player[Player:count()+1,entity] = TempPlayer 
+     }
+hideChat(1)
+}
+####
+for(I=1,Player:count()){
+    if(Player[I,entity]:isValid())
+    {
+        Prop[I,entity]:setPos(Player[I,entity]:shootPos())    
+    }
+    else
+    {
+        Prop[I,entity]:setPos(vec(0,0,0))   
+    }
+    if(S:string(1)=="/unjail"&&findPlayerByName(S:string(2))==Player[I,entity])
+    {
+        Player[I,entity]=noentity()    
+        Prop[I,entity]:propDelete()
+        hideChat(1)  
+    }
+}
+if(S:string(1)=="/unjail")
+{
+    hideChat(1)
+}
+####
+if(chatClk()&&owner():lastSaid()=="/jail list")
+{
+    for(I=1,Player:count())
+    {
+        print(Player[I,entity]:name())
+    }  
+    hideChat(1)
+}
+####
+if(chatClk(owner())&&owner():lastSaid()=="/help")
+{
+    print("/jail PlayerName to jail example: /jail Hllm")
+    print("/unjail PlayerName to unjail example: /unjail Hllm")    
+    print("/jail list to list all curently jailed players")
+    hideChat(1)
+}

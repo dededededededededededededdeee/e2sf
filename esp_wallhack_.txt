@@ -1,0 +1,60 @@
+@name ESP wallhack 
+@inputs E:wirelink 
+@outputs Fade 
+@persist O:entity List:array Width Height Distance Type:array PP:vector Props:array ScrW ScrH Fade StartFade HitmarkerSize HitmarkerCenterDistance
+
+if(first()){
+    E:egpClear()
+    
+    HitmarkerSize = 30
+    HitmarkerCenterDistance = 2.5            #Higher number equals lower distance             
+    
+    O = owner()
+    
+    ID = 1
+ 
+    function findTargets(){
+        
+        findByClass("npc_*")
+        List = findToArray()
+        
+        if(List:count() < 1){
+            E:egpClear()
+        }
+        
+        for(I = 1,List:count()){            
+            
+            Distance = O:pos():distance(List[I,entity]:pos())
+            
+            Type = List[I,entity]:type():explode("_")
+            
+            Width = 30000 / Distance
+            Height = 60000 / Distance
+            
+            E:egp3DTracker(I,List[I,entity]:pos() + vec(0,0,List[I,entity]:height()/2))
+            
+            E:egpBoxOutline(I+List:count(),vec2(0,0),vec2(Width,Height))
+            E:egpColor(I+List:count(),vec(255,0,0))
+            E:egpSize(I+List:count(),2)
+            E:egpText(I+List:count()*2,Type:string(2) + " " + Type:string(3),vec2(-20000 / Distance,-45000 / Distance))
+            E:egpSize(I+List:count()*2,clamp(20000 / Distance,10,30))
+            E:egpText(I+List:count()*3,""+round(Distance),vec2(-15000 / Distance,30000 / Distance))
+            E:egpSize(I+List:count()*3,clamp(20000 / Distance,10,30))
+            E:egpColor(I+List:count()*3,vec(100,0,0))
+            
+            E:egpParent(I+List:count(),I)
+            E:egpParent(I+List:count()*2,I)
+            E:egpParent(I+List:count()*3,I) 
+                   
+            if(changed(List:count())){
+                E:egpClear()
+            }
+            
+        }
+        E:egpCircle(500,vec2(egpScrW(O)/2,egpScrH(O)/2),vec2(2))
+    }
+          
+}
+interval(50)
+
+findTargets()

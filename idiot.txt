@@ -1,0 +1,46 @@
+@name IDIOT
+@inputs Id:entity Smile1:entity Smile2:entity Smile3:entity Smile4:entity Smile5:entity Smile6:entity Smile7:entity Smile8:entity Smile9:entity Smile10:entity Smile11:entity Smile12:entity 
+@outputs ColorG:vector ColorBG:vector 
+@persist I
+@trigger 
+
+interval(1000)
+if(clk()){
+    if(I){
+    Smile1:setColor(vec(random(255),random(255),random(255)))
+         Smile2:setColor(vec(random(255),random(255),random(255)))
+        Smile3:setColor(vec(random(255),random(255),random(255)))
+        Smile4:setColor(vec(random(255),random(255),random(255)))
+        Smile5:setColor(vec(random(255),random(255),random(255)))
+        Smile6:setColor(vec(random(255),random(255),random(255)))
+         Smile7:setColor(vec(random(255),random(255),random(255)))
+        Smile8:setColor(vec(random(255),random(255),random(255)))
+        Smile9:setColor(vec(random(255),random(255),random(255)))
+         Smile10:setColor(vec(255,255,255))
+        Smile11:setColor(vec(255,255,255))
+        Smile12:setColor(vec(255,255,255))
+        Id:setColor(vec(0,0,0))
+        ColorBG = vec(0,0,0)
+        ColorG = vec(255,255,255)
+            I = 0   
+
+    }
+    elseif(!I){
+        Smile1:setColor(vec(random(255),random(255),random(255)))
+         Smile2:setColor(vec(random(255),random(255),random(255)))
+        Smile3:setColor(vec(random(255),random(255),random(255)))
+        Smile4:setColor(vec(random(255),random(255),random(255)))
+        Smile5:setColor(vec(random(255),random(255),random(255)))
+        Smile6:setColor(vec(random(255),random(255),random(255)))
+         Smile7:setColor(vec(random(255),random(255),random(255)))
+        Smile8:setColor(vec(random(255),random(255),random(255)))
+        Smile9:setColor(vec(random(255),random(255),random(255)))
+         Smile10:setColor(vec(random(255),random(255),random(255)))
+        Smile11:setColor(vec(random(255),random(255),random(255)))
+        Smile12:setColor(vec(random(255),random(255),random(255)))
+        Id:setColor(vec(random(255),random(255),random(255)))
+        ColorBG = vec(255,255,255)
+        ColorBG = vec(0,0,0)
+        I=1 
+    }
+}

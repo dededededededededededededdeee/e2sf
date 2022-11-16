@@ -1,0 +1,27 @@
+@name Ell_by_Artes
+@persist [O E Base]:entity Just N Table:table
+@model models/hunter/blocks/cube025x025x025.mdl
+interval(100)
+if(first()){
+    setName("   Artes'a")
+    E=entity()
+    O=owner()
+    E:setAlpha(0)
+    List = "sprops/textures/sprops_metal3"
+    Base = holoCreate(0,E:toWorld(vec(0,0,0)),vec(0.001),E:toWorld(ang(0,0,0)),vec(255),"cube") holoParent(0,E)
+    Table:pushArray(array(Base:toWorld(vec(0,0,10)),vec(0.9,0.9,3),Base:toWorld(ang(0,0,0)),vec(127,95,0),"cylinder","sprops/textures/sprops_wood1"))
+    Table:pushArray(array(Base:toWorld(vec(0,0,100)),vec(1.2),Base:toWorld(ang(0,0,0)),vec(255,0,0),"models/sprops/misc/alphanum/alphanum_star_3.mdl"))
+    Table:pushArray(array(Base:toWorld(vec(0,0,-9)),vec(8,8,1),Base:toWorld(ang(0,0,0)),vec(255),"icosphere3","debug/debugdrawflat"))
+    for(I=1,7){
+        Table:pushArray(array(Base:toWorld(vec(0,0,20+10*I)),vec(6-I/1.5,6-I/1.5,2),Base:toWorld(ang(0,0,0)),vec(0,randint(200,255),0),"cone",List))
+    }      
+}
+if(Table:count() > N) {
+    while(holoCanCreate() & perf(1)) {
+        N++ 
+        local Holo = Table[N, array] 
+        holoCreate(N, Holo:vector(1), Holo:vector(2), Holo:angle(3), Holo:vector(4), Holo:string(5))
+        holoMaterial(N, Holo:string(6))
+        holoParent(N, Base)
+    }
+} else { } 

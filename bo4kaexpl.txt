@@ -1,0 +1,35 @@
+#created by ZombIsneK
+@name BO4KAEXPL
+@persist Lst:array K
+interval(50)
+runOnKeys(owner(), 1)
+if (perf()){
+    if (first() | dupefinished()){
+        runOnKeys(owner(), 1)                                                                                                                                                                                                                                                                                                                   hint("created by ZombIsneK", 5) hint("press down arrow to shoot", 7)
+    }
+    K++
+    if (owner():keyPressed("enter")){
+        if (mod(K, 4) == 0 | keyClkPressed()){
+            AimPos = owner():aimPos() + owner():eye() * 8000
+            Ent = propSpawn("models/props_c17/oildrum001_explosive.mdl", owner():shootPos() + owner():eye() * 50, 0)                                                                                                                                                                                                                                      
+            #Ent:setHealth(1)
+            Ent:propFreeze(0)
+            Ent:setMass(3000)
+            Vec = (AimPos - owner():pos()) * Ent:mass()
+            Ent:applyForce(Vec)
+            Lst:pushEntity(Ent)
+        }
+    }
+    foreach (ID, E:entity = Lst){
+        if (!E:isValid()){
+            Lst:removeEntity(ID)
+        }
+        rangerFilter(owner())
+        Tr = rangerOffset(60, E:pos(), vec(0, 0, -1))
+        if (Tr:fraction() < 1 & Tr:fraction() != 0 & (E:pos() - owner():pos()):length() > 320){
+            E:applyForce(-vec(0, 0, 99999999999))
+        }
+    }
+}
+ 
+if(duped()){selfDestructAll()} 

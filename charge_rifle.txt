@@ -1,0 +1,720 @@
+@name Charge_Rifle
+@inputs Turret:wirelink Light:wirelink
+@outputs 
+@persist TLinked LLinked Chargeing Mode Ready Laser LC ChargeATime ChargeTTime LETime LETimeR Roll Use CD Explode Start AutoFire
+@persist O:entity [LaserT GunColor GunMat TurretT]:table Pos:vector HoloEmitter:wirelink Weapon:string 
+@persist Holograms:table Count
+@model models/props_junk/cardboard_box004a.mdl
+
+#Hello there!
+#Auther: https://steamcommunity.com/id/Zmmark/
+#QQ:2245277517 < Chinese's chatroom
+
+
+#700 lines
+#81 holograms
+
+runOnTick(1)
+if (first()){
+    #runOnTick(1)
+    holoDeleteAll()
+    O=owner()
+    
+    Mode = round(random(0,1))
+    #1 is Apex's ChargeRifle
+    #0 is TitanFall 2's ChargeRifle
+    
+    AutoFire = 0
+    ChargeATime = 0.6
+    ChargeTTime = 0.6
+    Explode = 0
+    
+    Weapon = "weapon_crossbow"
+    
+    TurretT["NumBullets",number] = 1
+    
+    TurretT["ModeingDmg",number] = 3
+    TurretT["ModeingForce",number] = 5
+    TurretT["ModeingDmgDelay",number] = 0.1
+    
+    TurretT["BoomDmg",number] = 45
+    TurretT["BoomForce",number] = 1000
+    
+    TurretT["NochargeDmg",number] = 2000
+    TurretT["NochargeForce",number] = 2000
+    
+    LETime = 5
+    CD = 1
+    
+    LaserT["Color",vector] = vec(255,150,0)
+    LaserT["SizeS",number] = 2.5
+    LaserT["SizeE",number] = 100
+    LaserT["FadeTimeS",number] = 0.35
+    LaserT["FadeTimeE",number] = 1
+    
+    local E=entity()
+    
+    GunColor["Gunstock",vector] =vec(147,142,113)
+    GunMat["Gunstock",string] = "phoenix_storms/concrete3"
+    
+    GunColor["Body",vector] = vec(120)
+    GunMat["Body",string] = "phoenix_storms/concrete3"
+    
+    GunColor["Attachment",vector] = vec(100)
+    GunMat["Attachment",string] = "sprops/textures/hex_light_refl"
+    
+    GunColor["Power",vector] = vec(180)
+    GunMat["Power",string] = "phoenix_storms/construct/concrete_barrier2_00"
+    
+    GunColor["muzzle",vector] = vec(120)
+    GunMat["muzzle",string] = "models/XQM/PoleX1_diffuse"
+    
+    GunColor["muzzleAtt",vector] = vec(210)
+    GunMat["muzzleAtt",string] = "models/props_pipes/pipemetal001a"
+    
+    GunColor["Scope",vector] = vec(255,0,0)
+    GunMat["Scope",string] = " "
+    
+    GunColor["Warm",vector4] = vec4(0,0,0,0)
+    GunMat["Warm",string] = " "
+
+    function holomodelsc(Index,Model:string,Pos:vector,Ang:angle,Scale:vector,S){
+        #if (!holoEntity(Index):isValid()){ holoCreate(Index) }
+        #holoModel(Index,Model)
+        Holograms[Index+"Model",string] = Model
+        #holoPos(Index,Pos)
+        Holograms[Index+"Pos",vector] = Pos
+        #holoAng(Index,entity():angles()+Ang)
+        Holograms[Index+"Ang",angle] = entity():angles()+Ang
+        #holoScale(Index,Scale)
+        Holograms[Index+"Scale",vector] = Scale
+        
+        if (S==1){
+            #holoColor(Index,GunColor["Gunstock",vector])
+            #holoMaterial(Index,GunMat["Gunstock",string])
+            Holograms[Index+"Color",vector] = GunColor["Gunstock",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Gunstock",vector]
+        }elseif (S==2){
+            #holoColor(Index,GunColor["Body",vector])
+            #holoMaterial(Index,GunMat["Body",string])
+            Holograms[Index+"Color",vector] = GunColor["Body",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Body",vector]
+        }elseif (S==3){
+            #holoColor(Index,GunColor["Attachment",vector])
+            #holoMaterial(Index,GunMat["Attachment",string])  
+            Holograms[Index+"Color",vector] = GunColor["Attachment",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Attachment",vector]
+        }elseif (S==4){
+            #holoColor(Index,GunColor["Power",vector])
+            #holoMaterial(Index,GunMat["Power",string])  
+            Holograms[Index+"Color",vector] = GunColor["Power",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Power",vector]
+        }elseif (S==5){
+            #holoColor(Index,GunColor["muzzle",vector])
+            #holoMaterial(Index,GunMat["muzzle",string])  
+            Holograms[Index+"Color",vector] = GunColor["muzzle",vector]
+            Holograms[Index+"Mat",vector] = GunMat["muzzle",vector]
+        }elseif (S==6){
+            #holoColor(Index,GunColor["muzzleAtt",vector])
+            #holoMaterial(Index,GunMat["muzzleAtt",string])  
+            Holograms[Index+"Color",vector] = GunColor["muzzleAtt",vector]
+            Holograms[Index+"Mat",vector] = GunMat["muzzleAtt",vector]
+        }elseif (S==7){
+            #holoColor(Index,GunColor["Scope",vector])
+            #holoMaterial(Index,GunMat["Scope",string])  
+            Holograms[Index+"Color",vector] = GunColor["Scope",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Scope",vector]
+        }elseif (S==8){
+            #holoColor(Index,GunColor["Warm",vector4])
+            #holoMaterial(Index,GunMat["Warm",string])
+            #holoDisableShading(Index,1)
+            Holograms[Index+"Color",vector] = GunColor["Warm",vector]
+            Holograms[Index+"Mat",vector] = GunMat["Warm",vector]
+        }
+        
+        Count = Index
+    }
+    
+    holomodelsc(1,"models/holograms/cube.mdl",E:toWorld(vec(-1.9,0,51)),ang(0),vec(0.4,0.125,0.175),1)
+    holomodelsc(2,"models/holograms/cube.mdl",E:toWorld(vec(-5,0,51)),ang(0,0,0),vec(0.7,0.125,0.075),1)
+    holomodelsc(3,"models/holograms/hq_rcube.mdl",E:toWorld(vec(-5,0,51.75)),ang(-5,0,0),vec(0.7,0.175,0.1),3)
+    
+    holomodelsc(4,"models/holograms/cube.mdl",E:toWorld(vec(-10.25,0,50.25)),ang(-4,0,0),vec(0.4,0.125,0.25),1)
+    holomodelsc(5,"models/holograms/cube.mdl",E:toWorld(vec(-11.75,0,50.5)),ang(5,0,0),vec(0.2,0.125,0.15),1)
+    holomodelsc(6,"models/holograms/cube.mdl",E:toWorld(vec(-11.65,0,49.5)),ang(-20,0,0),vec(0.2,0.125,0.125),1)
+    holomodelsc(7,"models/holograms/cube.mdl",E:toWorld(vec(-10.35,0,48.5)),ang(0,0,0),vec(0.35,0.125,0.25),1)
+    
+    holomodelsc(8,"models/holograms/cube.mdl",E:toWorld(vec(-8.15,0,49.25)),ang(0,0,0),vec(0.075,0.125,0.25),1)
+    holomodelsc(9,"models/holograms/cube.mdl",E:toWorld(vec(-5.75,0,49.25)),ang(50,0,0),vec(0.075,0.125,0.325),1)
+    holomodelsc(10,"models/holograms/cube.mdl",E:toWorld(vec(-7.75,0,48.5)),ang(95,0,0),vec(0.075,0.125,0.2),1)
+    
+    holomodelsc(11,"models/holograms/cube.mdl",E:toWorld(vec(-1,0,49)),ang(0,0,0),vec(0.05,0.125,0.35),1)
+    holomodelsc(12,"models/holograms/cube.mdl",E:toWorld(vec(-1.15,0,46.5)),ang(45,0,0),vec(0.1,0.125,0.2),1)
+    holomodelsc(13,"models/holograms/cube.mdl",E:toWorld(vec(-6.25,0,46.5)),ang(-77.5,0,0),vec(0.1,0.125,0.825),1)
+    holomodelsc(14,"models/holograms/cube.mdl",E:toWorld(vec(-8.25,0,48)),ang(0,0,0),vec(0.35,0.125,0.15),1)
+    
+    holomodelsc(15,"models/holograms/cube.mdl",E:toWorld(vec(-7.25,0,46.25)),ang(0,0,0),vec(0.3,0.075,0.1),3)
+    holomodelsc(16,"models/holograms/cube.mdl",E:toWorld(vec(-9.35,0,46.47)),ang(25,0,0),vec(0.125,0.075,0.1),3)
+    holomodelsc(17,"models/holograms/cube.mdl",E:toWorld(vec(-9.675,0,46.75)),ang(0,0,0),vec(0.1,0.075,0.1),3)
+    
+    holomodelsc(18,"models/holograms/cube.mdl",E:toWorld(vec(-3.25,0,49.5)),ang(0,0,0),vec(0.01,0.075,0.1),3)
+    holomodelsc(19,"models/holograms/cube.mdl",E:toWorld(vec(-3.6,0,48.75)),ang(55,0,0),vec(0.01,0.075,0.075),3)
+    holomodelsc(20,"models/holograms/cube.mdl",E:toWorld(vec(-4.8,0,48.85)),ang(-65,0,0),vec(0.01,0.075,0.15),3)
+    holomodelsc(21,"models/holograms/cube.mdl",E:toWorld(vec(-4.2,0,49.75)),ang(15,0,0),vec(0.0125,0.05,0.1),3)
+
+    #####
+    
+    holomodelsc(22,"models/holograms/cube.mdl",E:toWorld(vec(3,0,47)),ang(0,0,0),vec(0.75,0.125,0.05),1)
+    holomodelsc(23,"models/holograms/cube.mdl",E:toWorld(vec(3,0,50)),ang(0,0,0),vec(0.6,0.12,0.4),2)
+    
+    #####
+    holomodelsc(24,"models/holograms/cube.mdl",E:toWorld(vec(0.5,1,49.75)),ang(0,0,7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(25,"models/holograms/cube.mdl",E:toWorld(vec(0.5,0.85,49.5)),ang(0,0,7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(26,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,1,49.75)),ang(0,0,7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(27,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1,0.125,0.225),4)    
+    
+    holomodelsc(28,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,1,49.75)),ang(0,0,7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(29,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(30,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,1,49.75)),ang(0,0,7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(31,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(32,"models/holograms/cube.mdl",E:toWorld(vec(0.5,-1,49.75)),ang(0,0,-7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(33,"models/holograms/cube.mdl",E:toWorld(vec(0.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(34,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,-1,49.75)),ang(0,0,-7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(35,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(36,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,-1,49.75)),ang(0,0,-7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(37,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1,0.125,0.225),4)
+    
+    holomodelsc(38,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,-1,49.75)),ang(0,0,-7.5),vec(0.025,0.125,0.25),3)
+    holomodelsc(39,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1,0.125,0.225),4)
+    
+    #####
+    
+    holomodelsc(40,"models/holograms/rcube.mdl",E:toWorld(vec(-0.25,0,52)),ang(0,0,0),vec(0.075,0.165,0.125),3)
+    
+    holomodelsc(41,"models/holograms/cube.mdl",E:toWorld(vec(3.575,0,53.25)),ang(0,0,0),vec(0.5,0.055,0.135),2)
+    
+    holomodelsc(42,"models/holograms/rcube.mdl",E:toWorld(vec(1,0,53)),ang(0,0,0),vec(0.125,0.125,0.1),3)
+    
+    holomodelsc(44,"models/holograms/cube.mdl",E:toWorld(vec(6.75,0,50.5)),ang(0,0,0),vec(0.05,0.125,0.5),2)
+    
+    #####
+    
+    holomodelsc(45,"models/holograms/cube.mdl",E:toWorld(vec(8.375,0,53.85)),ang(0,0,0),vec(0.3,0.055,0.025),1)
+    holomodelsc(46,"models/holograms/cube.mdl",E:toWorld(vec(7.375,0,46.75)),ang(0,0,0),vec(0.5,0.055,0.05),1)
+    
+    holomodelsc(47,"models/holograms/cube.mdl",E:toWorld(vec(8.375,0,46.25)),ang(0,0,0),vec(0.4,0.125,0.05),3)
+    holomodelsc(48,"models/holograms/cube.mdl",E:toWorld(vec(7.25,0,45.5)),ang(-45,0,0),vec(0.175,0.1,0.025),3)
+    holomodelsc(49,"models/holograms/cube.mdl",E:toWorld(vec(6.375,0,45.6)),ang(0,0,0),vec(0.035,0.1,0.155),3)
+    holomodelsc(50,"models/holograms/cube.mdl",E:toWorld(vec(10.65,0,45.9)),ang(0,0,0),vec(0.015,0.1,0.1),3)
+    
+    #####
+    
+    holomodelsc(51,"models/holograms/octagon.mdl",E:toWorld(vec(7.45,0,50.45)),ang(90,0,0),vec(0.225,0.225,0.075),5)
+    holoCreate(51,E:toWorld(vec(7.45,0,50.45)))
+    holoAng(51,ang(90,0,0))
+    
+    local Muz = holoEntity(51)
+    
+    holomodelsc(52,"models/holograms/rcube.mdl",Muz:toWorld(vec(0,0,0.35)),ang(90,0,0),vec(0.125,0.125,0.125),5)
+    holomodelsc(53,"models/holograms/octagon.mdl",Muz:toWorld(vec(0,0,2.75)),ang(90,0,0),vec(0.225,0.225,0.275),5)
+    
+    holomodelsc(54,"models/holograms/cube.mdl",Muz:toWorld(vec(0,1.5,2.75)),ang(90,0,0),vec(0.05,0.05,0.225),5)
+    holomodelsc(55,"models/holograms/cube.mdl",Muz:toWorld(vec(0,-1.5,2.75)),ang(90,0,0),vec(0.05,0.05,0.225),5)
+    
+    holomodelsc(56,"models/holograms/cube.mdl",Muz:toWorld(vec(1.35,0,0)),ang(90,0,0),vec(0.125,0.125,0.025),5)
+    holomodelsc(57,"models/holograms/cube.mdl",Muz:toWorld(vec(-1.35,0,0)),ang(90,0,0),vec(0.125,0.125,0.025),5)
+    
+    holomodelsc(58,"models/holograms/cube.mdl",Muz:toWorld(vec(-2.5,0,0.05)),ang(100,0,0),vec(0.075,0.075,0.025),5)
+    holomodelsc(59,"models/holograms/cube.mdl",Muz:toWorld(vec(2.5,0,0.05)),ang(-100,0,0),vec(0.075,0.075,0.025),5)
+    
+    holomodelsc(60,"models/holograms/cube.mdl",Muz:toWorld(vec(-2.85,0,3.5)),ang(0,0,0),vec(0.55,0.15,0.025),6)
+    holomodelsc(61,"models/holograms/cube.mdl",Muz:toWorld(vec(-2.225,-1.45,2.15)),ang(0,0,45),vec(0.375,0.15,0.025),6)
+    holomodelsc(62,"models/holograms/cube.mdl",Muz:toWorld(vec(-2.225,1.45,2.15)),ang(0,0,-45),vec(0.375,0.15,0.025),6)
+    
+    holomodelsc(63,"models/holograms/cube.mdl",Muz:toWorld(vec(2.85,0,3.5)),ang(0,0,0),vec(0.55,0.15,0.025),6)
+    holomodelsc(64,"models/holograms/cube.mdl",Muz:toWorld(vec(2.225,-1.45,2.15)),ang(0,0,-45),vec(0.375,0.15,0.025),6)
+    holomodelsc(65,"models/holograms/cube.mdl",Muz:toWorld(vec(2.225,1.45,2.15)),ang(0,0,45),vec(0.375,0.15,0.025),6)
+    
+    holomodelsc(66,"models/holograms/cube.mdl",Muz:toWorld(vec(0)),ang(0,0,0),vec(0.01),6)
+    
+    holomodelsc(69,"models/holograms/cube.mdl",E:toWorld(vec(0.5,0.85,49.5)),ang(0,0,7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(70,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(71,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(72,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,0.85,49.5)),ang(0,0,7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(73,"models/holograms/cube.mdl",E:toWorld(vec(0.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(74,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    holomodelsc(75,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1+0.005,0.12+0.0055,0.225+0.005),8)
+    holomodelsc(76,"models/holograms/cube.mdl",E:toWorld(vec(0.5+1.5+1.5+1.5,-0.85,49.5)),ang(0,0,-7.5),vec(0.1+0.005,0.125+0.005,0.225+0.005),8)
+    
+    holomodelsc(77,"models/holograms/octagon.mdl",E:toWorld(vec(7.45,0,50.45)),ang(90,0,0),vec(0.225+0.005,0.225+0.005,0.075+0.005),8)
+    holomodelsc(78,"models/holograms/rcube.mdl",Muz:toWorld(vec(0,0,0.35)),ang(90,0,0),vec(0.125+0.005,0.125+0.005,0.125+0.005),8)
+    holomodelsc(79,"models/holograms/octagon.mdl",Muz:toWorld(vec(0,0,2.75)),ang(90,0,0),vec(0.225+0.005,0.225+0.005,0.275+0.005),8)
+    
+    holomodelsc(80,"models/holograms/cube.mdl",Muz:toWorld(vec(0,1.5,2.75)),ang(90,0,0),vec(0.05+0.005,0.05+0.005,0.225+0.005),8)
+    holomodelsc(81,"models/holograms/cube.mdl",Muz:toWorld(vec(0,-1.5,2.75)),ang(90,0,0),vec(0.05+0.005,0.05+0.005,0.225+0.005),8)
+    
+    
+    if (entity():isWeldedTo():type()=="gmod_wire_holoemitter"){
+        HoloEmitter = entity():isWeldedTo():wirelink()
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Holo emitter: ",vec(0,180,0),"Online")      
+    }else{
+        print(" ")
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Holo emitter: ",vec(180,0,0),"OffLine")
+        printColor(vec(255),"Plz Put the E2 On the:[",vec(180)," HoloEmitter ",vec(255),"]")
+        propDeleteAll()
+    }
+    
+    if (Turret:entity():isValid()&Turret:entity():type()=="gmod_wire_turret"){
+        TLinked=1
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Turret: ",vec(0,180,0),"Online")    
+        Turret:entity():setAlpha(0)
+        Turret:entity():propFreeze(1)
+    }else{
+        print(" ")
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Turret: ",vec(180,0,0),"Offline")    
+        printColor(vec(255),"Plz use Wiretool link E2 input:[",vec(180)," Turret ",vec(255),"] to Turret")
+    }
+    
+    if (Light:entity():isValid()&Light:entity():type()=="gmod_wire_light"){
+        LLinked=1
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Light: ",vec(0,180,0),"Online")  
+        Light:entity():constraintBreak()  
+        Light:entity():setAlpha(1)
+        Light:entity():propFreeze(1)
+    }else{
+        print(" ")
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Light: ",vec(180,0,0),"Offline")    
+        printColor(vec(255),"Plz use Wiretool link E2 input:[",vec(180)," Light ",vec(255),"] to Light")
+    }
+    
+    if (Mode==1){
+        print(" ")
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255),"Mode: Apex's Charge Rifle")
+    }else{
+        print(" ")
+        printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255),"Mode: TitanFall 2's Charge Rifle")
+    }
+    printColor(vec(180),"It has 2 Firemode, respawn it to change firemode(random)")
+    print(" ")
+    
+    printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255),"Take up [ ",vec(180),Weapon,vec(255)," ] and press E to use")
+    printColor(vec(120),"Auther: https://steamcommunity.com/id/Zmmark/")
+    Ready=1
+    
+    entity():soundPlay(1,0,"BaseCombatCharacter.AmmoPickup")
+    
+    timer("spawnholos",500)
+    #runOnTick(0)
+}
+
+if (clk("spawnholos")){
+    local I=1
+    perf()
+    
+    #holoDelete(51)
+    
+    while (I<Count){
+        holoCreate(I)
+        holoMaterial(I,Holograms[I+"Mat",string])
+        holoModel(I,Holograms[I+"Model",string])
+        holoColor(I,Holograms[I+"Color",vector])
+        holoScale(I,Holograms[I+"Scale",vector])
+        holoPos(I,Holograms[I+"Pos",vector])
+        holoAng(I,Holograms[I+"Ang",angle])
+        I++
+    }
+    
+    timer("parent",500)
+}
+
+if (clk("parent")){
+    holoCreate(67)
+    holoAlpha(67,0)
+    holoScale(67,vec(0.1))
+    holoPos(67,entity():toWorld(vec(-7,1.5,48)))
+    holoAng(67,entity():angles())
+    
+    holoCreate(68)
+    holoAlpha(68,0)
+    holoScale(68,vec(0.1))
+    for (I=1,51){
+        holoParent(I,67)
+    }
+    
+    for (I=51,55){
+        holoParent(I,51)
+    }
+    for (I=69,76){
+        holoParent(I,67)
+    }
+    for (I=77,81){
+        holoParent(I,51)
+    }
+    
+    holoParent(66,67)
+    for (I=56,65){
+        holoParent(I,66)
+    }
+}
+
+if (duped()){
+    printColor(vec(255),"Starting...")
+    reset()
+}
+
+if (Turret:entity():type()=="gmod_wire_turret"&TLinked==0){
+    TLinked=1
+    printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Turret: ",vec(0,180,0),"Online")
+}
+
+if (Light:entity():type()=="gmod_wire_light"&LLinked==0){
+    LLinked=1
+    printColor(vec(255,191,0),"[Charge_rifle]",vec(255,255,255)," Light: ",vec(0,180,0),"Online")    
+}
+
+R = rangerOffset(10000,holoEntity(51):toWorld(vec(0,0,20)),(O:aimPos()-holoEntity(51):toWorld(vec(0,0,20))):toAngle():forward())
+
+if (Mode==1){
+    ##Apex's Mode Rilfe
+    if (O:weapon():type()==Weapon){
+        if (Use==0){
+            Use=1
+            for (I=1,65){
+                holoVisible(I,players(),1)
+            }
+            for (I=69,81){
+                holoVisible(I,players(),1)
+            }
+        }
+        Light:entity():setAlpha(1)
+        noCollideAll(Light:entity(),1)
+        Light:entity():setPos(holoEntity(51):toWorld(vec(0,0,0)))
+        rangerFilter(Light:entity())
+        holoPos(67,O:attachmentPos("anim_attachment_rh")+vec(0,0,0))
+        holoAng(67,O:attachmentAng("anim_attachment_rh"))
+        
+        holoPos(68,O:aimPos())
+        O:weapon():setAlpha(0)
+        
+    }else{
+        if (Use==1){
+            Use=0
+            for (I=1,65){
+                holoVisible(I,players(),0)
+            }
+            for (I=69,81){
+                holoVisible(I,players(),0)
+            }
+        }
+    }
+    
+
+    
+    if (changed(O:keyUse())&O:keyUse()&Ready==1&Use==1){
+        Ready=0
+        holoEntity(1):soundPlay(1,0,"ambient/levels/citadel/zapper_loop2.wav")
+        soundPitch(1,300)
+        holoEntity(68):soundPlay(3,0,"player/general/flesh_burn.wav")
+        holoAng(66,holoEntity(66):toWorld(ang(0,0,90)))
+        
+        HoloEmitter["Pos",vector] = Pos
+        HoloEmitter["Active",number] = 1
+        HoloEmitter["LineBeam",number] = 1
+        HoloEmitter["Size",number] = LaserT["SizeS",number]
+        HoloEmitter["Color",vector] = LaserT["Color",vector]
+        HoloEmitter["FadeTime",number] = LaserT["FadeTimeS",number]
+        
+        Turret["NumBullets",number] = TurretT["NumBullets",number]
+        
+        Turret["Damage",number] = TurretT["ModeingDmg",number]
+        Turret["Sound",string] = "none"
+        Turret["Spread",number] = 0
+        Turret["Tracer",string] = "none"
+        Turret["Force",number] = TurretT["ModeingForce",number]
+        Turret["Delay",number] = TurretT["ModeingDmgDelay",number]
+    
+        Turret:entity():setAlpha(0)
+        noCollideAll(Turret:entity(),1)
+        
+        Laser=1
+        
+        timer("Boom",ChargeATime*1000)
+        timer("BLaser",(ChargeATime*1000)-300)
+        timer("laser",1)
+    }
+    
+    if (clk("laser")){
+        
+        #print(" ")
+        if (LC==0){
+            Pos = holoEntity(51):pos()
+            LC=1
+        }else{
+            Pos = R:position()
+            LC=0
+                Turret:entity():setPos(holoEntity(51):toWorld(vec(0,0,2)))
+                Turret:entity():setAng((R:position()-holoEntity(51):pos()):toAngle())
+                Turret["Fire",number] = 1
+                rangerFilter(Turret:entity())
+        }
+        if (Laser==1){
+            timer("laser",1)
+        }
+        #print(Pos)
+    }
+    
+    if (Laser==1){
+        Roll=Roll+0.75
+        Light["RGB",vector] = vec(Roll*2,Roll*0.5,0)
+        Light["GlowBrightness",number] =1
+        Light["SpriteSize",number] = Roll*2
+        Light["GlowSize",number] = Roll*50
+    }else{
+        Roll=Roll-0.5
+        Light["RGB",vector] = vec(Roll*0.5,Roll*0.125,0)
+        if (Roll<=0){
+            Roll=0
+        }
+    }
+    for (I=69,81){
+        holoColor(I,GunColor["Warm",vector4]+vec4(Roll*10,Roll*2,0,Roll*4))
+    }
+    holoAng(51,holoEntity(51):toWorld(ang(0,Roll,0)))
+    
+    HoloEmitter["Pos",vector] = Pos
+    
+    if (clk("BLaser")){
+        HoloEmitter["Size",number] = LaserT["SizeE",number]
+        HoloEmitter["FadeTime",number] = LaserT["FadeTimeE",number]
+        timer("LaserEnd",10)
+        LETimeR=0
+    }
+    
+    if (clk("Boom")){
+        Laser=0
+        if (AutoFire>0){concmd("+attack")}
+        soundStop(1)
+        soundStop(3)
+        holoEntity(1):soundPlay(2,0,"PropJeep.FireChargedCannon")
+        holoEntity(2):soundPlay(5,0,"ambient/levels/citadel/zapper_warmup4.wav")
+        soundPitch(2,85)
+        soundVolume(2,1)
+        soundVolume(5,0.65)
+        soundPitch(5,45)
+        soundStop(5,1.25)
+        
+        holoEntity(68):soundPlay(4,0,"Boulder.ImpactHard")
+        holoAng(66,holoEntity(66):toWorld(ang(0,0,90)))
+        
+        Turret["Damage",number] = TurretT["BoomDmg",number]
+        Turret["Delay",number] = 0.01
+        Turret["Sound",string] = "none"
+        Turret["Tracer",string] = "none"
+        Turret["Force",number] = TurretT["BoomForce",number]
+        Turret["Fire",number] = 1
+        
+        if (Explode>0){
+            B=propSpawn("models/props_phx/ww2bomb.mdl",R:position(),1)
+            B:propBreak()
+        }
+        Turret:entity():setPos(holoEntity(51):toWorld(vec(0,0,2)))
+        Turret:entity():setAng((R:position()-holoEntity(51):pos()):toAngle())
+        
+        timer("ready",CD*1000)
+        timer("stop",200)
+    }
+    
+    if (clk("ready")){
+        Ready=1
+    }
+    
+    if (clk("LaserEnd")){
+        if (LC==0){
+            Pos=R:position()
+            LC=1
+        }else{
+            Pos = holoEntity(51):pos()
+            LC=0
+        }
+        LETimeR=LETimeR+1
+        
+        if (LETimeR>=LETime){
+        }else{
+            timer("LaserEnd",10)
+        }
+    }
+    
+    if (clk("stop")){
+        Turret["Fire",number] = 0
+        if (AutoFire>0){concmd("-attack")}
+    }
+    
+}
+
+if (Mode==0){
+    
+    ##Titan Fall's Charge Rifle
+    
+    if (O:weapon():type()==Weapon){
+        if (Use==0){
+            Use=1
+            for (I=1,65){
+                holoVisible(I,players(),1)
+            }
+            for (I=69,81){
+                holoVisible(I,players(),1)
+            }
+        }
+        Light:entity():setAlpha(1)
+        noCollideAll(Light:entity(),1)
+        Light:entity():setPos(holoEntity(51):toWorld(vec(0,0,0)))
+        rangerFilter(Light:entity())
+        holoPos(67,O:attachmentPos("anim_attachment_rh")+vec(0,0,0))
+        holoAng(67,O:attachmentAng("anim_attachment_rh"))
+        
+        holoPos(68,O:aimPos())
+        O:weapon():setAlpha(0)
+        
+    }else{
+        if (Use==1){
+            Use=0
+            for (I=1,65){
+                holoVisible(I,players(),0)
+            }
+            for (I=69,81){
+                holoVisible(I,players(),0)
+            }
+        }
+    }
+    
+    if (O:keyUse()&Use==1&Ready==1){
+        if (Chargeing==0){
+            Start=1
+            holoAng(66,holoEntity(66):toWorld(ang(0,0,90)))
+            holoEntity(51):soundPlay(6,0,"SuitRecharge.ChargingLoop")
+            holoEntity(2):soundPlay(2,0,"Streetwar.d3_c17_10b_apc_idle1")
+            soundPitch(2,40)
+        }
+        Chargeing=Chargeing+0.01
+    }else{
+        Chargeing=Chargeing-0.01
+    }
+    soundPitch(2,120+Chargeing*40)
+    
+    if (Chargeing<=0){
+        Chargeing=0
+        soundStop(2)
+    }
+    
+    if (Start==1){print(_HUD_PRINTCENTER , "Chargeing = "+Chargeing*100+"/"+ChargeTTime*100)}
+    
+    if (Chargeing==0&Start==1){Start=0,holoAng(66,holoEntity(66):toWorld(ang(0,0,90)))}
+    
+    if (changed(O:keyUse())&O:keyUse()&Ready==1&Use==1){
+        holoEntity(1):soundPlay(1,0,"physics/metal/weapon_impact_soft3.wav")
+        holoEntity(51):soundPlay(6,0,"SuitRecharge.ChargingLoop")
+        soundPitch(1,170)
+        soundVolume(1,0.25)
+    }
+        soundPitch(6,100+Chargeing*45)
+    if (changed(O:keyUse())&!O:keyUse()&Ready==1&Use==1){
+        soundStop(6,0.15)
+        holoEntity(1):soundPlay(1,0,"physics/metal/weapon_impact_soft3.wav")
+        soundPitch(1,170)
+        soundVolume(1,0.2)
+    }
+    
+    if (Chargeing>0){
+        Roll=Chargeing*100
+        Light["RGB",vector] = vec(Roll*2,Roll*0.5,0)
+        Light["GlowBrightness",number] =1
+        Light["SpriteSize",number] = Roll*2
+        Light["GlowSize",number] = Roll*50
+    }else{
+        Roll=Roll-1
+        Light["RGB",vector] = vec(Roll*0.5,Roll*0.125,0)
+        if (Roll<=0){
+            Roll=0
+        }
+    }
+    for (I=69,81){
+        holoColor(I,GunColor["Warm",vector4]+vec4(Roll*10,Roll*2,0,Roll*4))
+    }
+    holoAng(51,holoEntity(51):toWorld(ang(0,Roll,0)))
+    
+    if (Chargeing>=ChargeTTime&Use==1){
+        if (AutoFire>0){concmd("+attack")}
+        Start=0
+        holoAng(66,holoEntity(66):toWorld(ang(0,0,90)))
+        Ready=0
+        Turret["Delay",number] = 0.01
+        Turret["Spread",number] = 0.01
+        Turret["Sound",string] = "none"
+        Turret["Tracer",string] = "none"
+        Turret["Force",number] = TurretT["NochargeForce",number]
+        Turret["Fire",number] = 1
+        Turret["Damage",number] = TurretT["NochargeDmg",number]
+        soundStop(6)
+        holoEntity(1):soundPlay(7,0,"PropJeep.FireChargedCannon")
+        holoEntity(2):soundPlay(5,0,"ambient/levels/citadel/zapper_warmup4.wav")
+        soundPitch(2,45)
+        soundVolume(2,1)
+        soundVolume(5,0.65)
+        soundPitch(5,45)
+        soundStop(5,1.25)
+        timer("CD",CD*1000)
+        Turret:entity():setAlpha(0)
+        noCollideAll(Turret:entity(),1)
+        
+        if (Explode>0){
+            B=propSpawn("models/props_phx/ww2bomb.mdl",R:position(),1)
+            B:propBreak()
+        }
+        Turret:entity():setPos(holoEntity(51):toWorld(vec(0,0,2)))
+        Turret:entity():setAng((R:position()-holoEntity(51):pos()):toAngle())
+        
+        HoloEmitter["Pos",vector] = Pos
+        HoloEmitter["Active",number] = 1
+        HoloEmitter["LineBeam",number] = 1
+        HoloEmitter["Size",number] = LaserT["SizeE",number]
+        HoloEmitter["Color",vector] = LaserT["Color",vector]
+        HoloEmitter["FadeTime",number] = LaserT["FadeTimeE",number]
+        
+        timer("LaserEnd",10)
+        LETimeR=0
+        timer("stop",100)
+        #Chargeing=0
+        
+    }
+    if (clk("stop")){Turret["Fire",number] = 0,if (AutoFire>0){concmd("-attack")}}
+    HoloEmitter["Pos",vector] = Pos
+    if (clk("CD")){
+        Ready=1
+    }
+    
+    if (clk("LaserEnd")){
+        if (LC==0){
+            Pos=R:position()
+            LC=1
+        }else{
+            Pos = holoEntity(51):pos()
+            LC=0
+        }
+        LETimeR=LETimeR+1
+        
+        if (LETimeR>=LETime){
+        }else{
+            timer("LaserEnd",10)
+        }
+    }
+    
+    
+}
+
+
+

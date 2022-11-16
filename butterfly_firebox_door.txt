@@ -1,0 +1,257 @@
+@name Butterfly Firebox Door
+@inputs Open Firebox:vector Warmup EngineActive
+@outputs Flame Cinders Closed
+@persist [OpenSound CloseSound]:string FireSound:string Ang Closed FireboxCOL:vector
+@model models/props_junk/MetalBucket02a.mdl
+@trigger Open Warmup EngineActive
+
+if(first() | dupefinished()){
+    
+    OpenSound = "doors/door_metal_large_open1.wav"
+    CloseSound = "doors/door_metal_large_close2.wav"
+    
+    FireSound = "ambient/fire/fire_med_loop1.wav"
+    
+    A = 1
+    holoCreate(A, entity():toWorld(vec(11.5,0,-9)), vec(1),
+    entity():toWorld(ang(0,0,0)))
+    holoColor(A, vec4(255,255,255,255))
+    holoModel(A, "")
+    holoScale(A, vec(0))
+    holoParent(A, entity())  
+    holoMaterial(A,"") 
+    
+    A = 2
+    holoCreate(A, holoEntity(1):toWorld(vec(-11.5,-5.9,0)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/geometry/fdisc_24.mdl")
+    holoScale(A, vec(1,1,1))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,0),vec(0,0,1),0)
+    
+    A = 3
+    holoCreate(A, holoEntity(1):toWorld(vec(-11.5,-2.9,0)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,0)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/rectangles/size_1_5/rect_6x24x3.mdl")
+    holoScale(A, vec(1,1,1))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 4
+    holoCreate(A, holoEntity(1):toWorld(vec(-4,-2.9,-1.6)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 5
+    holoCreate(A, holoEntity(1):toWorld(vec(-7,-12,-1.6)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 6
+    holoCreate(A, holoEntity(1):toWorld(vec(-15,-12,-1.6)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 7
+    holoCreate(A, holoEntity(1):toWorld(vec(-20,-2.9,-1.6)), vec(1),
+    holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(1))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    #----------------
+    A = 8
+    holoCreate(A, entity():toWorld(vec(11.5,0,-9)), vec(1),
+    entity():toWorld(ang(0,0,0)))
+    holoColor(A, vec4(255,255,255,255))
+    holoModel(A, "")
+    holoScale(A, vec(0))
+    holoParent(A, entity())  
+    holoMaterial(A,"") 
+    
+    A = 9
+    holoCreate(A, holoEntity(8):toWorld(vec(-11.5,5.9,0)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,90)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/geometry/fdisc_24.mdl")
+    holoScale(A, vec(1,1,1))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,0),vec(0,0,-1),0)
+    
+    A = 10
+    holoCreate(A, holoEntity(8):toWorld(vec(-11.5,2.9,0)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,0)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/rectangles/size_1_5/rect_6x24x3.mdl")
+    holoScale(A, vec(1,1,1))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 11
+    holoCreate(A, holoEntity(8):toWorld(vec(-4,2.9,-1.6)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 12
+    holoCreate(A, holoEntity(8):toWorld(vec(-7,12,-1.6)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 13
+    holoCreate(A, holoEntity(8):toWorld(vec(-15,12,-1.6)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+    A = 14
+    holoCreate(A, holoEntity(8):toWorld(vec(-20,2.9,-1.6)), vec(1),
+    holoEntity(8):toWorld(ang(0,0,90)))
+    holoColor(A, Firebox)
+    holoModel(A, "models/sprops/geometry/t_fdisc_12.mdl")
+    holoScale(A, vec(0.2,0,0.2))
+    holoParent(A, holoEntity(8))  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    #----------------
+    A = 15
+    holoCreate(A, entity():toWorld(vec(13,0,-9)), vec(1),
+    entity():toWorld(ang(0,90,0)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/rectangles/size_1_5/rect_6x12x3.mdl")
+    holoScale(A, vec(1,1,2))
+    holoParent(A, entity())  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 16
+    holoCreate(A, entity():toWorld(vec(13,3,-12.5)), vec(1),
+    entity():toWorld(ang(0,45,90)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/geometry/fdisc_12.mdl")
+    holoScale(A, vec(0.3,0.3,0.3))
+    holoParent(A, entity())  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 17
+    holoCreate(A, holoEntity(16):toWorld(vec(0,-2,1.1)), vec(1),
+    holoEntity(16):toWorld(ang(90,-90,0)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/misc/fittings/bend_long_90_1_5.mdl")
+    holoScale(A, vec(1))
+    holoParent(A, holoEntity(16))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 18
+    holoCreate(A, holoEntity(16):toWorld(vec(0,-3.1,11.9)), vec(1),
+    holoEntity(16):toWorld(ang(0,0,0)))
+    holoColor(A, vec4(36,36,36,255))
+    holoModel(A, "models/sprops/cylinders/size_1/cylinder_1_5x18.mdl")
+    holoScale(A, vec(1))
+    holoParent(A, holoEntity(16))  
+    holoMaterial(A,"models/proppertextures/acrylic_grimey") 
+    
+    A = 19
+    holoCreate(A, entity():toWorld(vec(0,0,-5)), vec(1),
+    entity():toWorld(ang(0,0,180)))
+    holoColor(A, vec4(0,0,0,255))
+    holoModel(A, "models/sprops/misc/domes/size_4/dome_48x30.mdl")
+    holoScale(A, vec(-0.7))
+    holoParent(A, entity())  
+    holoMaterial(A,"gulch/gulch_crystal_white") 
+    
+}
+interval(250)
+
+
+if(Ang != Open){
+    timer("door",100)
+    if(clk("door")){
+        Ang += clamp(Ang < Open ? 0.25 : -0.25 , -1 , 1)
+        holoAng(1,entity():toWorld(ang(0,Ang*45,0)))
+        holoAng(8,entity():toWorld(ang(0,-Ang*45,0)))
+        holoAng(16,entity():toWorld(ang(0,45-Ang*45,90)))
+    }
+}
+
+if(Ang < 0.5){
+    Closed = 1
+}else{Closed = 0}
+
+
+
+if(changed(Closed) & Closed){
+    
+    entity():soundPlay(1,0,CloseSound)
+    soundStop(2)
+    
+}
+
+if(changed(Open) & Open){
+    entity():soundPlay(1,0,OpenSound)
+    if(EngineActive | Warmup){
+        holoEntity(1):soundPlay(2,0,FireSound)
+    }
+    
+}
+#[elseif(Ang <= 0.1 & changed(Ang)){
+    entity():soundPlay(1,0,CloseSound)
+    soundStop(2)
+    Firebox = Firebox
+}]#
+
+if(Open & (EngineActive | Warmup)){
+    Flame = 1
+    if(Warmup){
+        Cinders = 1
+    }else{
+        Cinders = 0
+    }
+}else{
+    Cinders = 0
+    Flame = 0
+}
+
+if(EngineActive | Warmup){
+    timer("fboxrefresh",250)
+}
+
+if(EngineActive | Warmup){if(Open){FireboxCOL = vec(0)}elseif(Closed){FireboxCOL = Firebox}}else{FireboxCOL = vec(0)}
+if(clk("fboxrefresh")){
+    holoColor(4,FireboxCOL)
+    holoColor(5,FireboxCOL)
+    holoColor(6,FireboxCOL)
+    holoColor(7,FireboxCOL)
+    holoColor(11,FireboxCOL)
+    holoColor(12,FireboxCOL)
+    holoColor(13,FireboxCOL)
+    holoColor(14,FireboxCOL)
+    holoColor(19,Firebox)
+}

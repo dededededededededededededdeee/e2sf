@@ -1,0 +1,60 @@
+@name ExpressionScript Test
+GlobalVar = 400
+
+#[
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	Nam euismod, tortor sed cursus placerat, massa nunc lobortis turpis,
+	ut vehicula ante nunc eget eros.
+]#
+
+print(_AAAAAAAAAAA)
+
+while(1) {
+	print("while true do end")
+}
+
+"helloworld"()
+
+if(1) {
+	print("hi")
+} elseif(2) {
+	print("no")
+} elseif(3) {
+	print("bye")
+} else {
+	print("else")
+}
+
+Var = 500
+switch (Var) {
+	case 500,
+		print("this will happen")
+	break
+
+	default,
+		print("this won't")
+	break
+}
+
+try {
+	error("Hello world")
+} catch(Err) {
+	print(Err)
+}
+
+T = table()
+T[1, vector] = vec()
+
+print( T[1, vector] )
+
+local Tbl = table(
+    "width" = Width,
+    "height" = Height,
+    "done" = 0,
+    "output" = table(),
+    "png" = 1,
+    "type" = Type,
+
+    "crc" = 0,
+    "adler" = 1
+) 

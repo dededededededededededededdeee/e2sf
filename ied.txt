@@ -1,0 +1,221 @@
+@name IED
+@persist [Rh Phone Lh Boom Bomb O]:entity 
+@persist [Equip Explo Plant Reset]:number
+@persist [Crowbar]:string
+if(first()|duped())
+{
+    entity():setAlpha(0)
+    Crowbar = "weapon_crowbar"
+    O = owner()
+    Grey = vec(200,200,200)
+    
+    Rh = holoCreate(0, entity():toWorld(vec(3,0,30)), vec(), entity():toWorld(ang()), vec()) holoAlpha(0,0)
+    
+    Phone = holoCreate(1, Rh:toWorld(vec(0,0,0)), vec(), Rh:toWorld(ang(0,0,0)), vec()) holoAlpha(1,0) holoParent(1,Rh)
+    
+    Lh = holoCreate(2,entity():toWorld(vec(-3,0,30)),vec(),ang(),vec()) holoAlpha(2,0)
+    
+    Bomb = holoCreate(3,Lh:toWorld(vec(0,0,0)),vec(),ang(),vec()) holoAlpha(3,0) holoParent(3,Lh)
+    
+    #Bomb starts here
+    holoCreate(4,Lh:toWorld(vec(0,0.2,0)),vec(0.35,0.23,0.1),Lh:toWorld(ang(0,0,0)),vec(40,40,40), "hq_tube_thin") holoParent(4,Bomb)
+    holoClipEnabled(4,1,1)
+    holoClip(4,1,vec(0,1,0),vec(0,-1,0),0)
+    holoCreate(5,Lh:toWorld(vec(0.93,0,0)),vec(0.15,0.15,1),Lh:toWorld(ang(0,0,0)),vec(255,255,255), "hq_cylinder") holoMaterial(5, "phoenix_storms/top") holoParent(5,Bomb)
+    holoCreate(6,Lh:toWorld(vec(-0.93,0,0)),vec(0.15,0.15,1),Lh:toWorld(ang(0,0,0)),vec(255,255,255), "hq_cylinder") holoMaterial(6, "phoenix_storms/top") holoParent(6,Bomb)
+    holoCreate(7,Lh:toWorld(vec(0,0,3)),vec(0.35,0.19,0.15),Lh:toWorld(ang(0,0,0)),vec(255,255,255), "hq_tube_thin") holoMaterial(7, "models/weapons/v_stunbaton/w_shaft01a") holoParent(7,Bomb)
+    holoCreate(8,Lh:toWorld(vec(0,0,-3)),vec(0.35,0.19,0.15),Lh:toWorld(ang(0,0,0)),vec(170,170,170), "hq_tube_thin") holoMaterial(8, "models/weapons/v_stunbaton/w_shaft01a") holoParent(8,Bomb)
+    holoCreate(9,Lh:toWorld(vec(0.93,0,6)),vec(0.15,0.15,0.07),Lh:toWorld(ang(0,0,0)),vec(150,150,150), "hq_dome") holoMaterial(9, "phoenix_storms/top") holoParent(9,Bomb)
+    holoCreate(10,Lh:toWorld(vec(-0.93,0,6)),vec(0.15,0.15,0.07),Lh:toWorld(ang(0,0,0)),vec(150,150,150), "hq_dome") holoMaterial(10, "phoenix_storms/top") holoParent(10,Bomb)
+    holoCreate(11,Lh:toWorld(vec(0.93,0,-6)),vec(0.15,0.15,0.07),Lh:toWorld(ang(180,0,0)),vec(150,150,150), "hq_dome") holoMaterial(11, "phoenix_storms/top") holoParent(11,Bomb)
+    holoCreate(12,Lh:toWorld(vec(-0.93,0,-6)),vec(0.15,0.15,0.07),Lh:toWorld(ang(180,0,0)),vec(150,150,150), "hq_dome") holoMaterial(12, "phoenix_storms/top") holoParent(12,Bomb)
+    holoCreate(13,Lh:toWorld(vec(0,1.2,-0.2)),vec(0.25,0.05,0.5),Lh:toWorld(ang(0,0,0)),vec(255,255,255), "hq_rcube") holoMaterial(13, "phoenix_storms/metal") holoParent(13,Bomb)
+    holoCreate(14,Lh:toWorld(vec(0.8,0.7,1)),vec(1.2,0.13,0.35),Lh:toWorld(ang(90,40,0)),vec(255,255,150), "hq_torus_thin") holoMaterial(14, "phoenix_storms/cigar") holoParent(14,Bomb)
+    holoClipEnabled(14,1,1)
+    holoClip(14,1,vec(0,0,0),vec(-1,0,0),0)
+    holoCreate(15,Lh:toWorld(vec(-0.8,0.7,1)),vec(1.2,0.13,0.35),Lh:toWorld(ang(90,-40,0)),vec(150,255,100), "hq_torus_thin") holoMaterial(15, "phoenix_storms/cigar") holoParent(15,Bomb)
+    holoClipEnabled(15,1,1)
+    holoClip(15,1,vec(0,0,0),vec(-1,0,0),0)
+    holoCreate(16,Lh:toWorld(vec(0,1.45,-0.3)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(16,Bomb)
+    holoCreate(17,Lh:toWorld(vec(0.7,1.45,-0.3)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(17,Bomb)
+    holoCreate(18,Lh:toWorld(vec(-0.7,1.45,-0.3)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(18,Bomb)
+    holoCreate(19,Lh:toWorld(vec(0,1.45,-0.85)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(19,Bomb)
+    holoCreate(20,Lh:toWorld(vec(0.7,1.45,-0.85)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(20,Bomb)
+    holoCreate(21,Lh:toWorld(vec(-0.7,1.45,-0.85)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(21,Bomb)
+    holoCreate(22,Lh:toWorld(vec(0,1.45,-1.4)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(22,Bomb)
+    holoCreate(23,Lh:toWorld(vec(0.7,1.45,-1.4)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(23,Bomb)
+    holoCreate(24,Lh:toWorld(vec(-0.7,1.45,-1.4)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(24,Bomb)
+    holoCreate(25,Lh:toWorld(vec(0,1.56,1)),vec(0.17,0.01,0.15),Lh:toWorld(ang(0,0,0)),vec(255,255,255), "cube") holoMaterial(25,"models/props_lab/eyescanner_disp") holoParent(25,Bomb)
+    holoCreate(26,Lh:toWorld(vec(0,1.45,-1.95)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(26,Bomb)
+    holoCreate(27,Lh:toWorld(vec(0.7,1.45,-1.95)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),vec(0,255,0), "cube") holoParent(27,Bomb)
+    holoCreate(28,Lh:toWorld(vec(-0.7,1.45,-1.95)),vec(0.04,0.03,0.02),Lh:toWorld(ang(0,0,90)),vec(255,0,0), "cube") holoParent(28,Bomb)
+    holoCreate(29,Lh:toWorld(vec(-1.9,0.5,0)),vec(0.04,0.08,0.17),Lh:toWorld(ang(0,-30,0)),vec(255,255,255), "hq_rcube") holoMaterial(29, "models/props_junk/trashdumpster01a") holoParent(29,Bomb)
+    holoCreate(30,Lh:toWorld(vec(-1.45,0.85,0.8)),vec(0.2,0.13,0.1),Lh:toWorld(ang(80,-45,0)),vec(0,0,0), "hq_torus_thin") holoParent(30,Bomb)
+    holoClipEnabled(30,1,1)
+    holoClip(30,1,vec(0,0,0),vec(-1,0,0),0)
+    holoClipEnabled(30,2,1)
+    holoClip(30,2,vec(0,0.2,0),vec(0,-1,0),0)
+    holoCreate(31,Lh:toWorld(vec(0,1.5,1)),vec(0.18,0.16,0.02),Lh:toWorld(ang(0,0,90)),vec(55,55,55), "hq_stube_thin") holoParent(31,Bomb)
+    holoCreate(32,Lh:toWorld(vec(-1.3,1.1,0.8)),vec(0.2,0.13,0.1),Lh:toWorld(ang(80,-45,0)),vec(255,0,0), "hq_torus_thin") holoParent(32,Bomb)
+    holoClipEnabled(32,1,1)
+    holoClip(32,1,vec(0,0,0),vec(-1,0,0),0)
+    holoClipEnabled(32,2,1)
+    holoClip(32,2,vec(0,0.2,0),vec(0,-1,0),0)
+    
+    #Phone starts here
+    holoCreate(50,Rh:toWorld(vec(0,1.2,-0.2)),vec(0.25,0.05,0.5),Rh:toWorld(ang(0,0,0)),vec(255,255,255), "hq_rcube") holoMaterial(50, "phoenix_storms/metal") holoParent(50,Phone) 
+    holoCreate(51,Rh:toWorld(vec(0,1.45,-0.3)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(51,Phone)
+    holoCreate(52,Rh:toWorld(vec(0.7,1.45,-0.3)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(52,Phone)
+    holoCreate(53,Rh:toWorld(vec(-0.7,1.45,-0.3)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(53,Phone)
+    holoCreate(54,Rh:toWorld(vec(0,1.45,-0.85)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(54,Phone)
+    holoCreate(55,Rh:toWorld(vec(0.7,1.45,-0.85)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(55,Phone)
+    holoCreate(56,Rh:toWorld(vec(-0.7,1.45,-0.85)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(56,Phone)
+    holoCreate(57,Rh:toWorld(vec(0,1.45,-1.4)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(57,Phone)
+    holoCreate(58,Rh:toWorld(vec(0.7,1.45,-1.4)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(58,Phone)
+    holoCreate(59,Rh:toWorld(vec(-0.7,1.45,-1.4)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(59,Phone)
+    holoCreate(60,Rh:toWorld(vec(0,1.56,1)),vec(0.17,0.01,0.15),Rh:toWorld(ang(0,0,0)),vec(255,255,255), "cube") holoMaterial(60,"models/props_lab/eyescanner_disp") holoParent(60,Phone)
+    holoCreate(61,Rh:toWorld(vec(0,1.45,-1.95)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),Grey, "cylinder") holoParent(61,Phone)
+    holoCreate(62,Rh:toWorld(vec(0.7,1.45,-1.95)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),vec(0,255,0), "cube") holoParent(62,Phone)
+    holoCreate(63,Rh:toWorld(vec(-0.7,1.45,-1.95)),vec(0.04,0.03,0.02),Rh:toWorld(ang(0,0,90)),vec(255,0,0), "cube") holoParent(63,Phone)
+    holoCreate(64,Rh:toWorld(vec(0,1.5,1)),vec(0.18,0.16,0.02),Rh:toWorld(ang(0,0,90)),vec(55,55,55), "hq_stube_thin") holoParent(64,Phone)
+    
+    timer("masterreset",1000)
+    runOnTick(1)
+    reset()
+}
+if($Equip)
+{
+    switch (Equip)
+    {
+        case 1,
+        O:weapon():setAlpha(0)
+        holoPos(0, O:attachmentPos("anim_attachment_rh"))
+        holoAng(0, O:attachmentAng("anim_attachment_rh"))
+        holoParentAttachment(0,O,"anim_attachment_rh")
+        holoPos(1, Rh:toWorld(vec(0,-1.5,1)))
+        holoAng(1, Rh:toWorld(ang(10,-10,0)))
+        for(I=50,64)
+        {
+            holoAlpha(I,255)
+        }
+        break
+        
+        case 0,
+        O:weapon():setAlpha(255)
+        for(I=50,64)
+        {
+            holoAlpha(I,0)
+        }
+        break
+    }
+    switch (Equip & Plant==0)
+    {
+        case 1,
+        holoPos(2, O:attachmentPos("anim_attachment_lh"))
+        holoAng(2, O:attachmentAng("anim_attachment_lh"))
+        holoParentAttachment(2,O,"anim_attachment_lh")
+        holoPos(3, Lh:toWorld(vec(0.5,-0.2,0)))
+        holoAng(3, Lh:toWorld(ang(0,0,0)))
+        for(I=4,32)
+        {
+            holoAlpha(I,255)
+        }
+        break
+        
+        case 0,
+        switch(Plant&!Explo)
+        {
+            case 1,
+            for(I=4,32)
+            {
+                holoAlpha(I,255)
+            }
+            break
+        
+            case 0,
+            for(I=4,32)
+            {
+                holoAlpha(I,0)
+            }
+            break
+        }
+        break
+    }
+}
+
+switch (O:weapon():type()==Crowbar)
+{
+    case 0,
+    Equip = 0
+    break
+    
+    case 1,
+    Equip = 1
+    switch (O:keyAttack2() & !Plant & ((O:pos()+vec(0,0,50)):distance(O:aimPos())<70))
+    {
+        case 1,
+        holoUnparent(2)
+        holoParent(2, O:aimEntity())
+        holoPos(2, O:aimPos())
+        holoAng(2, O:eyeAngles())
+        holoPos(3, Lh:toWorld(vec(-1,0,0)))
+        holoAng(3, Lh:toWorld(ang(0,90,0)))
+        holoEntity(2):soundPlay(2,0.17, "weapons/c4/c4_plant.wav")
+        Plant = 1
+        break
+    }
+    
+    switch (!Reset & Plant & O:keyReload())
+    {
+        case 1,
+        holoMaterial(25, "effects/combinedisplay002b")
+        Phone:soundPlay(1,2.5, "ambient/tones/equip1.wav")
+        timer("boom",2550)
+        Reset = 1
+        break
+    }
+    break
+}
+
+switch (clk("boom"))
+{
+    case 1,
+    holoUnparent(2)
+    Explo = 1
+    Boom = propSpawn("models/props_phx/mk-82.mdl",holoEntity(2):pos(),ang(),1) 
+    Boom:setPos(holoEntity(2):pos())
+    Boom:propBreak()
+    holoEntity(2):soundPlay(3,5, "ambient/explosions/explode_1.wav")
+    for(I=4,32)
+    {
+        holoAlpha(I,0)
+    }
+    timer("reset",5000)
+    break
+}
+
+switch (clk("reset"))
+{
+    case 1,
+    Explo = 0
+    Reset = 0
+    Plant = 0
+    holoPos(2, O:attachmentPos("anim_attachment_lh"))
+    holoAng(2, O:attachmentAng("anim_attachment_lh"))
+    holoParentAttachment(2,O,"anim_attachment_lh")
+    holoPos(3, Lh:toWorld(vec(0.5,-0.2,0)))
+    holoAng(3, Lh:toWorld(ang(0,0,0)))
+    for(I=4,32)
+    {
+        holoAlpha(I,255)
+    }
+    holoMaterial(25, "models/props_lab/eyescanner_disp")
+    break
+}
+
+switch(!holoEntity(2))
+{
+    case 1,
+    reset()
+    break
+}
