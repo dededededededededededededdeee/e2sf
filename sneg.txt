@@ -1,0 +1,11 @@
+@name sneg
+@persist [E O]:entity A
+interval(1)
+A=(A-1)%256
+EntV=entity()
+Ow=owner()
+holoCreate(1)
+holoScale(1,vec(1,1,1))
+holoModel(1,"models/effects/splodeglass.mdl")
+holoPos(1,entity():pos()+entity():up()*A)
+

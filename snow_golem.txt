@@ -1,0 +1,575 @@
+@name Snow Golem
+@inputs 
+@outputs 
+@persist [Ranger Ranger2]:ranger [Find Health SnowBallSmall SnowBallBig Head]:entity Vec:vector Move Offset Angry KnockOff Dist Throw
+@trigger 
+@model models/hunter/blocks/cube05x05x05.mdl
+
+runOnTick(1)
+
+HoverHeight = 40
+Vec = Ranger:position() + vec(0,0,HoverHeight) - entity():pos()
+HoloAng = (Find:pos()+vec(0,0,Offset) - holoEntity(11):pos()):toAngle()
+
+Range = 1500
+RunSpeed = 70000
+WalkSpeed = 40000
+AngForce = 80
+Killable = 0
+
+if(duped())
+{
+entity():propFreeze(1)
+reset()    
+}
+
+###########################################################################################
+###########################################################################################
+################      WAIT, HOW THE HELL DID U GET IN HERE???       #######################
+#############     well, if u made it in, feel free to look around =)   ####################
+###########################################################################################
+############################ but i have one thing to ask.. ################################
+###########################################################################################
+#################### Please Dont reupload witout my permission =) #########################
+###########################################################################################
+#########################    these arent easy to make    ##################################
+###########################################################################################
+###########################################################################################
+
+
+
+
+
+
+
+
+if(first() | duped())
+{
+    entity():propNotSolid(1)
+    entity():setMass(1500)
+    entity():setMaterial("models/debug/debugwhite")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      hint("Snow Golem: made by paul_rose",3)
+
+    holoCreate(1)
+    holoMaterial(1,"models/debug/debugwhite")
+    holoScale(1,vec(2.5))
+    holoPos(1,entity():toWorld(vec(0,0,-26)))
+    holoParent(1,entity())
+
+## buttons
+    holoCreate(2)
+    holoColor(2,vec(40))
+    holoScale(2,vec(0.4))
+    holoAng(2,entity():toWorld(ang(vec(0))))
+    holoPos(2,entity():toWorld(vec(10,0,7)))
+    holoParent(2,entity())
+
+    holoCreate(3)
+    holoColor(3,vec(40))
+    holoScale(3,vec(0.4))
+    holoAng(3,entity():toWorld(ang(vec(0))))
+    holoPos(3,entity():toWorld(vec(10,0,0)))
+    holoParent(3,entity())
+
+    holoCreate(4)
+    holoColor(4,vec(40))
+    holoScale(4,vec(0.4))
+    holoAng(4,entity():toWorld(ang(vec(0))))
+    holoPos(4,entity():toWorld(vec(10,0,-7)))
+    holoParent(4,entity())
+
+
+    holoCreate(5)
+    holoColor(5,vec(40))
+    holoScale(5,vec(0.4))
+    holoAng(5,holoEntity(1):toWorld(ang(vec(0))))
+    holoPos(5,holoEntity(1):toWorld(vec(13,0,8)))
+    holoParent(5,entity())
+
+    holoCreate(6)
+    holoColor(6,vec(40))
+    holoScale(6,vec(0.4))
+    holoAng(6,holoEntity(1):toWorld(ang(vec(0))))
+    holoPos(6,holoEntity(1):toWorld(vec(13,0,0)))
+    holoParent(6,entity())
+
+    holoCreate(7)
+    holoColor(7,vec(40))
+    holoScale(7,vec(0.4))
+    holoAng(7,holoEntity(1):toWorld(ang(vec(0))))
+    holoPos(7,holoEntity(1):toWorld(vec(13,0,-8)))
+    holoParent(7,entity())
+
+## arms
+    holoCreate(8)
+    holoMaterial(8,"phoenix_storms/wood")
+    holoColor(8,vec(255,140,120))
+    holoScale(8,vec(0.2,2.5,0.2))
+    holoAng(8,entity():toWorld(ang(vec(0,0,-60))))
+    holoPos(8,entity():toWorld(vec(0,18,-5)))
+    holoParent(8,entity())
+
+    holoCreate(9)
+    holoMaterial(9,"phoenix_storms/wood")
+    holoColor(9,vec(255,140,120))
+    holoScale(9,vec(0.2,2.5,0.2))
+    holoAng(9,entity():toWorld(ang(vec(0,0,60))))
+    holoPos(9,entity():toWorld(vec(0,-18,-5)))
+    holoParent(9,entity())
+
+## head
+
+    holoCreate(10)
+    holoColor(10,vec(40))
+    holoScale(10,vec(0.4))
+    holoAng(10,entity():toWorld(ang(vec(0))))
+    holoPos(10,entity():toWorld(vec(0,0,12)))
+    holoParent(10,entity())
+
+    holoCreate(11)
+    holoScale(11,vec(1.7))
+    holoAng(11,entity():toWorld(ang(vec(0))))
+    holoPos(11,entity():toWorld(vec(0,0,22)))
+    holoParent(11,holoEntity(10))
+
+## face
+
+    holoCreate(12)
+    holoColor(12,vec(30))
+    holoScale(12,vec(0.2))
+    holoAng(12,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(12,holoEntity(11):toWorld(vec(9.1,7,4)))
+    holoParent(12,holoEntity(10))
+
+    holoCreate(13)
+    holoColor(13,vec(30))
+    holoScale(13,vec(0.2))
+    holoAng(13,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(13,holoEntity(11):toWorld(vec(9.1,-4,7)))
+    holoParent(13,holoEntity(10))
+
+    holoCreate(14)
+    holoColor(14,vec(30))
+    holoScale(14,vec(0.2,0.4,0.2))
+    holoAng(14,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(14,holoEntity(11):toWorld(vec(9.1,0,-5)))
+    holoParent(14,holoEntity(10))
+
+    holoCreate(15)
+    holoColor(15,vec(30))
+    holoScale(15,vec(0.2,0.4,0.2))
+    holoAng(15,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(15,holoEntity(11):toWorld(vec(9.1,4.8,-2.7)))
+    holoParent(15,holoEntity(10))
+
+    holoCreate(16)
+    holoColor(16,vec(30))
+    holoScale(16,vec(0.2))
+    holoAng(16,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(16,holoEntity(11):toWorld(vec(9.1,-3.5,-2.7)))
+    holoParent(16,holoEntity(10))
+
+    holoCreate(17)
+    holoColor(17,vec(30))
+    holoScale(17,vec(0.2))
+    holoAng(17,holoEntity(11):toWorld(ang(vec(0))))
+    holoPos(17,holoEntity(11):toWorld(vec(9.1,-5.9,-0.5)))
+    holoParent(17,holoEntity(10))
+
+## pumpkin
+
+    holoCreate(18)
+    holoMaterial(18,"phoenix_storms/fender_wood")
+    holoColor(18,vec(255,190,0))
+    holoScale(18,vec(2.2))
+    holoAng(18,entity():toWorld(ang(vec(0))))
+    holoPos(18,entity():toWorld(vec(0,0,24)))
+    holoParent(18,holoEntity(10))
+
+## pumpkin face
+
+# left eye
+    holoCreate(19)
+    holoColor(19,vec(30))
+    holoScale(19,vec(0.2,0.5,0.6))
+    holoAng(19,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(19,holoEntity(18):toWorld(vec(12.3,5,4)))
+    holoParent(19,holoEntity(18))
+
+    holoCreate(20)
+    holoColor(20,vec(30))
+    holoScale(20,vec(0.2,0.6,0.3))
+    holoAng(20,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(20,holoEntity(18):toWorld(vec(12.3,7.4,0.5)))
+    holoParent(20,holoEntity(18))
+
+    holoCreate(21)
+    holoColor(21,vec(30))
+    holoScale(21,vec(0.2,0.2,0.3))
+    holoAng(21,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(21,holoEntity(18):toWorld(vec(12.3,8.4,4)))
+    holoParent(21,holoEntity(18))
+
+    holoCreate(22)
+    holoColor(22,vec(30))
+    holoScale(22,vec(0.2))
+    holoAng(22,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(22,holoEntity(18):toWorld(vec(12.3,5,8.5)))
+    holoParent(22,holoEntity(18))
+
+
+# right eye
+    holoCreate(23)
+    holoColor(23,vec(30))
+    holoScale(23,vec(0.2,0.5,0.6))
+    holoAng(23,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(23,holoEntity(18):toWorld(vec(12.3,-5,4)))
+    holoParent(23,holoEntity(18))
+
+    holoCreate(24)
+    holoColor(24,vec(30))
+    holoScale(24,vec(0.2,0.3,0.2))
+    holoAng(24,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(24,holoEntity(18):toWorld(vec(12.3,-6.2,8)))
+    holoParent(24,holoEntity(18))
+
+    holoCreate(25)
+    holoColor(25,vec(30))
+    holoScale(25,vec(0.2,0.3,0.2))
+    holoAng(25,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(25,holoEntity(18):toWorld(vec(12.3,-6.2,-0)))
+    holoParent(25,holoEntity(18))
+
+    holoCreate(26)
+    holoColor(26,vec(30))
+    holoScale(26,vec(0.2,0.2,0.4))
+    holoAng(26,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(26,holoEntity(18):toWorld(vec(12.3,-8.5,3)))
+    holoParent(26,holoEntity(18))
+
+# mouth
+
+    holoCreate(27)
+    holoColor(27,vec(30))
+    holoScale(27,vec(0.2,1.6,0.3))
+    holoAng(27,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(27,holoEntity(18):toWorld(vec(12.3,0,-7)))
+    holoParent(27,holoEntity(18))
+
+    holoCreate(28)
+    holoColor(28,vec(30))
+    holoScale(28,vec(0.15))
+    holoAng(28,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(28,holoEntity(18):toWorld(vec(12.6,-7,-4.5)))
+    holoParent(28,holoEntity(18))
+
+    holoCreate(29)
+    holoColor(29,vec(30))
+    holoScale(29,vec(0.15))
+    holoAng(29,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(29,holoEntity(18):toWorld(vec(12.6,-3.5,-4.5)))
+    holoParent(29,holoEntity(18))
+
+    holoCreate(30)
+    holoColor(30,vec(30))
+    holoScale(30,vec(0.15))
+    holoAng(30,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(30,holoEntity(18):toWorld(vec(12.6,2,-4.5)))
+    holoParent(30,holoEntity(18))
+
+    holoCreate(31)
+    holoColor(31,vec(30))
+    holoScale(31,vec(0.15))
+    holoAng(31,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(31,holoEntity(18):toWorld(vec(12.6,7,-4.5)))
+    holoParent(31,holoEntity(18))
+
+    holoCreate(32)
+    holoColor(32,vec(30))
+    holoScale(32,vec(0.15,0.3,0.3))
+    holoAng(32,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(32,holoEntity(18):toWorld(vec(12.6,9,-8.5)))
+    holoParent(32,holoEntity(18))
+
+    holoCreate(33)
+    holoColor(33,vec(30))
+    holoScale(33,vec(0.15,0.3,0.15))
+    holoAng(33,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(33,holoEntity(18):toWorld(vec(12.6,4,-9.5)))
+    holoParent(33,holoEntity(18))
+
+    holoCreate(34)
+    holoColor(34,vec(30))
+    holoScale(34,vec(0.15,0.3,0.15))
+    holoAng(34,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(34,holoEntity(18):toWorld(vec(12.6,4,-9.5)))
+    holoParent(34,holoEntity(18))
+
+    holoCreate(35)
+    holoColor(35,vec(30))
+    holoScale(35,vec(0.15,0.3,0.15))
+    holoAng(35,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(35,holoEntity(18):toWorld(vec(12.6,-2,-9.5)))
+    holoParent(35,holoEntity(18))
+
+    holoCreate(36)
+    holoColor(36,vec(30))
+    holoScale(36,vec(0.15,0.3,0.15))
+    holoAng(36,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(36,holoEntity(18):toWorld(vec(12.6,-7,-9.5)))
+    holoParent(36,holoEntity(18))
+
+    holoCreate(37)
+    holoColor(37,vec(30))
+    holoScale(37,vec(0.15))
+    holoAng(37,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(37,holoEntity(18):toWorld(vec(12.6,-7.9,-11)))
+    holoParent(37,holoEntity(18))
+
+    holoCreate(38)
+    holoColor(38,vec(30))
+    holoScale(38,vec(0.15))
+    holoAng(38,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(38,holoEntity(18):toWorld(vec(12.6,-2.9,-11)))
+    holoParent(38,holoEntity(18))
+
+    holoCreate(39)
+    holoColor(39,vec(30))
+    holoScale(39,vec(0.15))
+    holoAng(39,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(39,holoEntity(18):toWorld(vec(12.6,4.9,-11)))
+    holoParent(39,holoEntity(18))
+
+    holoCreate(40)
+    holoColor(40,vec(30))
+    holoScale(40,vec(1.8,1.8,0.1))
+    holoAng(40,holoEntity(18):toWorld(ang(vec(0))))
+    holoPos(40,holoEntity(18):toWorld(vec(0,0,-12.8)))
+    holoParent(40,holoEntity(18))
+
+    Health = propSpawn("models/Items/item_item_crate.mdl",0)
+    Health:setPos(entity():toWorld(vec(0,0,13)))
+    Health:setMass(1)
+    Health:setAlpha(0) 
+    timer("unfreese",300)
+
+}
+
+if(clk("unfreese")){
+entity():propFreeze(0)}
+
+
+#####################
+###  Find Target  ###
+#####################
+
+findInSphere(entity():pos(),Range)
+findIncludeClass("npc")
+findExcludeClass("avoid")
+Find = findClosest(entity():pos())
+
+Offset = Find:height()/2
+
+###############
+###  Hover  ###
+###############
+
+rangerFilter(entity())
+rangerFilter(Head)
+rangerFilter(Health)
+Ranger = rangerOffset(70,entity():pos(),vec(0,0,-1))
+
+rangerFilter(entity())
+rangerFilter(Health)
+Ranger2 = rangerOffset(40,entity():pos(),entity():forward())
+
+if(Ranger:hit())
+{
+entity():applyForce((Vec + $Vec)*50000)
+}
+
+################                    
+###  Angles  ###
+################
+
+Normal = vec(0,0,1)
+Ang = Normal:toAngle(-entity():forward())
+Ang = Ang:rotateAroundAxis(Ang:right(),-90)
+applyAngForce((entity():toLocal(Ang))*entity():mass()*8 + entity():angVel()*-tickInterval()*entity():mass()*AngForce)
+
+Pitch = 0
+Yaw = entity():bearing(Find:pos())
+Roll = entity():angles():roll()
+
+AngPos = (-ang(Pitch,Yaw,Roll))*5
+
+Dist = entity():pos():distance(Find:pos())
+
+if(Find){
+holoAng(10,HoloAng)
+entity():applyAngForce((AngPos + $AngPos)*200)}else{
+SnowBallSmall:propDelete()
+SnowBallBig:propDelete()
+holoAng(10,entity():toWorld(ang(vec(0))))}
+
+
+if(Find & Ranger:hit() & Dist>400)
+{
+    stoptimer("move")
+    stoptimer("stop")
+    Move=0
+
+    entity():applyForce((entity():forward())*RunSpeed)
+}
+
+
+################
+###  Attack  ###
+################
+
+if(!Angry & Find & Dist<600)
+{
+    timer("throwSnowball",1000)
+}else
+{
+stoptimer("throwSnowball")}
+
+if(clk("throwSnowball"))
+{
+    propSpawnEffect(0)
+    SnowBallSmall:propDelete()
+    SnowBallSmall = propSpawn("models/hunter/misc/sphere025x025.mdl",0)
+    SnowBallSmall:setPos(holoEntity(11):pos())
+    SnowBallSmall:setMaterial("models/debug/debugwhite")
+    SnowBallSmall:setAng(HoloAng)
+    SnowBallSmall:setMass(4)
+
+}
+SnowBallSmall:applyForce((SnowBallSmall:forward())*700)
+
+
+if(changed(Find:health())){
+SnowBallSmall:propDelete()
+SnowBallBig:propDelete()}
+
+#############
+###  angry
+#############
+
+if(Angry & Find & Dist<1200)
+{
+    timer("throwBigSnowball",3000)
+}else
+{
+stoptimer("throwBigSnowball")}
+
+if(clk("throwBigSnowball"))
+{
+    propSpawnEffect(0)
+    SnowBallBig:propDelete()
+    SnowBallBig = propSpawn("models/hunter/misc/sphere075x075.mdl",0)
+    SnowBallBig:setPos(holoEntity(11):pos())
+    SnowBallBig:setMaterial("models/debug/debugwhite")
+    SnowBallBig:setAng(HoloAng)
+    SnowBallBig:setMass(20)
+
+    Throw=1
+    timer("throwstop",500)
+}
+
+if(clk("throwstop")){
+Throw=0}
+
+if(Throw){
+SnowBallBig:applyForce((SnowBallBig:forward())*4000)}
+
+
+
+
+
+
+
+
+
+  
+
+###########################
+###  Pumpkin knock off  ###
+###########################
+
+if(!Health)
+{
+    KnockOff=1
+    Angry=1
+}
+
+if(changed(KnockOff) & KnockOff)
+{
+    Head = propSpawn("models/hunter/blocks/cube05x05x05.mdl",0)
+    Head:setPos(holoEntity(10):toWorld(vec(0)))
+    Head:setAng(holoEntity(11):angles())
+    holoParent(18,Head)    
+    Head:setAlpha(0)
+    Head:applyForce((Head:up())*5000)
+    Head:applyForce((Head:forward())*-5000)
+    Head:applyTorque((Head:toWorld(vec(0,0,10))))
+}
+
+
+if(Angry)
+{
+    findIncludeClass("player")
+}
+
+if(changed(Angry) & Angry)
+{
+timer("Angry",1500)
+}
+
+if(clk("Angry"))
+{
+    holoCreate(41)
+    holoColor(41,vec(30))
+    holoScale(41,vec(0.1,0.3,0.07))
+    holoAng(41,holoEntity(11):toWorld(ang(vec(0,0,-45))))
+    holoPos(41,holoEntity(11):toWorld(vec(9.8,-2.5,9)))
+    holoParent(41,holoEntity(10))
+
+    holoCreate(42)
+    holoColor(42,vec(30))
+    holoScale(42,vec(0.1,0.3,0.07))
+    holoAng(42,holoEntity(11):toWorld(ang(vec(0,0,45))))
+    holoPos(42,holoEntity(11):toWorld(vec(9.8,5,6)))
+    holoParent(42,holoEntity(10))
+
+    holoPos(14,holoEntity(11):toWorld(vec(9.1,0,-2)))
+    holoPos(15,holoEntity(11):toWorld(vec(9.1,4.8,-4.4)))
+    holoPos(16,holoEntity(11):toWorld(vec(9.1,-3.5,-4.4)))
+    holoPos(17,holoEntity(11):toWorld(vec(9.1,-5.9,-6)))
+}
+
+
+#########################
+###  Random movement  ###
+#########################
+
+if(!Find)
+{
+    timer("move",randint(4000,7000))
+}else
+{
+    stoptimer("move")
+}
+
+if(clk("move"))
+{
+    Move=1
+    entity():setAng(entity():toWorld(ang(vec(0,randint(-150,150),0))))}
+
+if(Move&!Ranger2:hit()&Ranger:hit())
+{
+    timer("stop",randint(5000,13000))
+    entity():applyForce((entity():forward())*WalkSpeed)        
+}
+
+if(clk("stop")){
+Move=0}

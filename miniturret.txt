@@ -1,0 +1,28 @@
+@name MiniTurret
+@inputs 
+@outputs Fire 
+@model models/hunter/plates/plate1x1.mdl 
+@trigger 
+ 
+runOnTick(1) 
+ 
+E = entity() 
+ 
+if(first()){
+E:setMass(10000)
+}
+
+if(owner():lastSaid() == "/on"){
+E:setPos(owner():shootPos()+vec(0,0,35)) 
+E:setAng(owner():eyeAngles())
+}
+
+if(owner():lastSaid() == "/off"){
+
+}
+if(owner():keyAttack2()){
+      Fire = 1
+}
+else{
+        Fire = 0
+}

@@ -1,0 +1,16 @@
+@name lampi
+@inputs 
+@outputs Color:vector On FOV Distance Brightness
+@persist 
+@trigger 
+
+interval(100)
+
+if (first()) {
+    On = 1
+    FOV = 90
+    Distance = 900
+    Brightness = 4
+}
+
+Color = vec(random(0, 255), random(0, 255), random(0, 255))

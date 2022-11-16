@@ -1,0 +1,153 @@
+@name Pong
+@inputs Egp:wirelink [P1 P2]:entity
+@outputs 
+@persist Const:table Dir:vector2 Pos:vector2 GameStart P1pos:vector2 P2pos:vector2 P1Score P2Score
+@trigger 
+
+#[
+    E2 made by Rush'R
+]#
+if(duped()){
+    reset()
+}
+if(first() | duped()){
+    
+    #Config
+    Const = table()
+    Const["sWidth",number]=100
+    Const["sHeight",number]=100
+    Const["P1Height",number]=30
+    Const["P2Height",number]=30
+    Const["BallSize",number]=4
+    Const["BallSpeed",number]=5
+    Const["P1Speed",number]=4
+    Const["P2Speed",number]=4
+    Const["P1up",string]="up"
+    Const["P2up",string]="up"
+    Const["P1down",string]="down"
+    Const["P2down",string]="down"
+    
+    #Extra config
+    Const["RandomStart",number] = 0.6 # 0 < X < 1 !!
+    Const["Margin",number]=10
+    function resetGame(){
+        Egp:egpClear()
+        Egp:egpScale(vec2(-100,100),vec2(-100,100))
+        Egp:egpText(1,"Pong",vec2(0,-20)) Egp:egpAlign(1,1,1) Egp:egpSize(1,60)
+        Egp:egpText(2,"Sit to pong",vec2(0,10)) Egp:egpAlign(2,1,1) Egp:egpSize(2,35) Egp:egpColor(2,vec(75,75,75))
+        Egp:egpText(3,"Made By Rush'R",vec2(0,70)) Egp:egpAlign(3,1,1) Egp:egpSize(3,20) Egp:egpColor(3,vec(170,20,20))
+        GameStart=0
+    }
+    
+    function startGame(){
+        Egp:egpClear()
+        Egp:egpScale(vec2(Const["sWidth",number]*-1-Const["Margin",number],Const["sWidth",number]+Const["Margin",number]),vec2(Const["sWidth",number]*-1-Const["Margin",number],Const["sWidth",number]+Const["Margin",number]))
+        Egp:egpLine(1,vec2(Const["sWidth",number]*-1,Const["sHeight",number]*-1),vec2(Const["sWidth",number],Const["sHeight",number]*-1))
+        Egp:egpColor(1,vec(200,25,25))
+        Egp:egpLine(2,vec2(Const["sWidth",number]*-1,Const["sHeight",number]*-1),vec2(Const["sWidth",number]*-1,Const["sHeight",number]))
+        Egp:egpColor(2,vec(200,25,25))
+        Egp:egpLine(3,vec2(Const["sWidth",number],Const["sHeight",number]),vec2(Const["sWidth",number],Const["sHeight",number]*-1))
+        Egp:egpColor(3,vec(200,25,25))
+        Egp:egpLine(4,vec2(Const["sWidth",number],Const["sHeight",number]),vec2(Const["sWidth",number]*-1,Const["sHeight",number]))
+        Egp:egpColor(4,vec(200,25,25))
+        Egp:egpText(5,"0",vec2(Const["sWidth",number]/-4,Const["sHeight",number]*-1+5))
+        Egp:egpSize(5,30)
+        Egp:egpColor(5,vec(200,200,25))
+        Egp:egpText(6,"0",vec2(Const["sWidth",number]/4,Const["sHeight",number]*-1+5))
+        Egp:egpColor(6,vec(200,200,25))
+        Egp:egpSize(6,30)
+        P1pos=vec2(Const["sWidth",number]*-1+Const["sWidth",number]/8,0)
+        P2pos=vec2(Const["sWidth",number]-Const["sWidth",number]/8,0)
+        Egp:egpBox(7,P1pos,vec2(5,Const["P1Height",number]))
+        Egp:egpBox(8,P2pos,vec2(5,Const["P2Height",number]))
+        Egp:egpCircle(9,vec2(0,0),vec2(Const["BallSize",number],Const["BallSize",number]))
+        Pos=vec2(0,0)
+        local Rand=random(Const["RandomStart",number]*-1,Const["RandomStart",number])
+        X=Const["BallSpeed",number]-(abs(Rand)*Const["BallSpeed",number])
+        Y=Rand*Const["BallSpeed",number]
+        Dir=vec2(X,Y)
+        interval(10)
+        runOnKeys(P1,1)
+        runOnKeys(P2,1)
+        P1Score=0
+        P2Score=0
+        GameStart=1
+    }
+    
+    #Axe=="X" | Axe=="Y"
+    function rebondis(Axe:string){
+        if(Axe=="X"){
+            Dir=vec2(Dir:x(),Dir:y()*-1)
+        }else{
+            Dir=vec2(Dir:x()*-1,Dir:y())
+        }
+    }
+    
+    function continueGame(){
+        runOnKeys(P1,1)
+        runOnKeys(P2,1)
+        interval(10)
+        if(P1:keyPressed(Const["P1up",string])){
+            P1pos+=vec2(0,Const["P1Speed",number]*-1)
+            if(P1pos:y()-Const["P1Height",number]/2<Const["sHeight",number]*-1){
+              P1pos-=vec2(0,Const["P1Speed",number]*-1)
+            }
+            Egp:egpPos(7,P1pos)
+        }elseif(P1:keyPressed(Const["P1down",string])){
+            P1pos+=vec2(0,Const["P1Speed",number])
+            if(P1pos:y()+Const["P1Height",number]/2>Const["sHeight",number]){
+              P1pos-=vec2(0,Const["P1Speed",number])
+            }
+            Egp:egpPos(7,P1pos)
+        }
+        if(P2:keyPressed(Const["P2up",string])){
+            P2pos+=vec2(0,Const["P2Speed",number]*-1)
+            if(P2pos:y()-Const["P2Height",number]/2<Const["sHeight",number]*-1){
+              P2pos-=vec2(0,Const["P2Speed",number]*-1)
+            }
+            Egp:egpPos(8,P2pos)
+        }elseif(P2:keyPressed(Const["P2down",string])){
+            P2pos+=vec2(0,Const["P2Speed",number])
+            if(P2pos:y()+Const["P2Height",number]/2>Const["sHeight",number]){
+              P2pos-=vec2(0,Const["P2Speed",number])
+            }
+            Egp:egpPos(8,P2pos)
+        }
+        if(!keyClk()){
+            Pos+=Dir
+            if(Pos:y()-Const["BallSize",number]<Const["sHeight",number]*-1 | Pos:y()+Const["BallSize",number]>Const["sHeight",number]){
+                rebondis("X")
+                soundPlay(1,1,"garrysmod/balloon_pop_cute.wav")   
+         }
+            if(Pos:x()-Const["BallSize",number]<Const["sWidth",number]*-1){
+                P2Score+=1
+                Egp:egpSetText(6,P2Score:toString())
+                rebondis("Y")
+                soundPlay(1,1,"garrysmod/content_downloaded.wav")   
+            }elseif(Pos:x()+Const["BallSize",number]>Const["sWidth",number]){
+                P1Score+=1
+                Egp:egpSetText(5,P1Score:toString())
+                rebondis("Y")
+                soundPlay(1,1,"garrysmod/content_downloaded.wav")   
+            }elseif(Dir:x()<0 & Pos:x()>P1pos:x() & Pos:x()-Const["BallSize",number]< P1pos:x()+2.5 & Pos:y()+Const["BallSize",number]>P1pos:y()-Const["P1Height",number]/2 & Pos:y()-Const["BallSize",number]<P1pos:y()+Const["P1Height",number]/2){
+                rebondis("Y")
+                soundPlay(1,1,"garrysmod/balloon_pop_cute.wav")   
+            }elseif(Dir:x()>0 & Pos:x()<P2pos:x() & Pos:x()+Const["BallSize",number]> P2pos:x()-2.5 & Pos:y()+Const["BallSize",number]>P2pos:y()-Const["P2Height",number]/2 & Pos:y()-Const["BallSize",number]<P2pos:y()+Const["P2Height",number]/2){
+                rebondis("Y")
+                soundPlay(1,1,"garrysmod/balloon_pop_cute.wav")   
+            }
+            Egp:egpPos(9,Pos)
+        }
+    }
+}
+if(changed(Egp) & Egp){
+    resetGame()
+}
+if((changed(P1) | changed(P2)) & P1:isPlayer() & P2:isPlayer()){
+    startGame()
+}elseif(changed(P1) | changed(P2)){
+    startGame()
+}
+if(GameStart){
+    continueGame()
+}

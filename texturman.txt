@@ -1,0 +1,11 @@
+@name texturman
+@persist Ang
+interval(1)
+Ang++
+holoCreate(1)
+
+holoModel(1,"models/gman_high.mdl")
+holoColor(1,vec(100,0,90))
+holoScale(1,vec(100,100,100))
+holoMaterial(1,"vgui/bg-lines")
+

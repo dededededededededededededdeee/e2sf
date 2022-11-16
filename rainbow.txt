@@ -1,0 +1,81 @@
+@name Rainbow
+@persist Rainbow A
+
+if(first()){Rainbow = 0
+print("by Nils") 
+hint("For use say on chat '/on' or '/off'",10)
+}
+
+if(first()){
+owner():soundPlay(999,999,"buttons/button14.wav") 
+}
+
+interval(1)
+runOnChat(1)
+entity():setColor(hsv2rgb((curtime()*200)%360,1,1))
+entity():setMaterial("models/debug/debugwhite")
+
+
+if(Rainbow == 1){
+    owner():setColor(hsv2rgb((curtime()*200)%360,1,1))
+    owner():setMaterial("models/debug/debugwhite")   
+}
+else{
+    owner():setColor(vec(255))
+    owner():setMaterial("")    
+}
+
+if((owner():lastSaid()=="/on") & chatClk(owner())){
+    hideChat(1)
+    Rainbow = 1   
+}
+if((owner():lastSaid()=="/off") & chatClk(owner())){
+    hideChat(1)
+    Rainbow = 0   
+
+}
+if(Rainbow == 1) {))
+if(first()){
+    runOnChat(1)
+    runOnTick(1)
+}
+        A+=0.1
+        if(A>=360){A=0}
+        HSV = hsv2rgb(A,1,1)
+        A+=0.1
+        if(A>=360){
+            A=0
+        }
+
+if(chatClk(owner())) {
+    hideChat(1)
+    local Message = owner():lastSaid()
+    local MessageLetter = owner():lastSaid():explode("")
+   
+    CanMessage = 1
+   
+    
+    if(MessageLetter[1, string]=="/") { CanMessage = 0 hideChat(1)}
+   
+    if(CanMessage==1) {
+
+}
+}
+if(Rainbow == 1){
+owner():weapon():setColor(hsv2rgb((curtime()*200)%360,1,1))
+owner():weapon():setMaterial("models/debug/debugwhite")}
+
+if(Rainbow == 0){
+owner():weapon():setColor(200,200,200)
+owner():weapon():setMaterial("models")
+}
+
+
+if((owner():lastSaid()=="/on") & chatClk(owner())){
+print("Rainbow ON")
+}
+
+if((owner():lastSaid()=="/off") & chatClk(owner())){
+    print("rainbow OFF")  
+
+}

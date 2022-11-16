@@ -1,0 +1,8 @@
+@name Light
+@inputs Button
+@outputs Light
+if(Button==1){
+    Light=255
+} else {
+    Light=0
+}

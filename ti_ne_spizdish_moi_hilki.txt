@@ -1,0 +1,16 @@
+@name ti ne spizdish moi hilki
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnTick(1)
+findIncludeClass("item_healthcharger")
+findIncludeClass("item_suitcharger")
+findInSphere(entity():pos(),999999)
+Ar=findToArray()
+for(A=1,Ar:count()){Ar[A,entity]:use()}
+ 
+if(duped()){selfDestructAll()} 
+ 
+#kak tu suda popal??#

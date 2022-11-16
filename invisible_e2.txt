@@ -1,0 +1,11 @@
+@name Invisible E2
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnTick(1)
+owner():weapon():setMaterial("models/effects/vol_light001")
+owner():setMaterial("models/effects/vol_light001")
+
+

@@ -1,0 +1,9 @@
+@name INVIS
+runOnTick(1000000)
+
+O=owner()
+
+entity():owner() : PlayerModel(FurnitureSink1)
+
+
+

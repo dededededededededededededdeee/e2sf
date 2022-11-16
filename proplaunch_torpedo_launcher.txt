@@ -1,0 +1,65 @@
+@name Proplaunch_torpedo launcher
+@inputs 
+@outputs 
+@persist O:entity P:entity M:string T Rang:ranger
+@trigger 
+@model models/Items/ammoCrate_Rockets.mdl
+"
+yep, meh bad
+before use, make sure you using next cores:
+propcore
+to enable it, use console command
+wire_expression2_extension_enable propcore
+
+Also, if you want custom holograms, you can use this comand
+wire_holograms_modelany 1
+(but there is no holograms, it was but for debug)
+"
+if(dupefinished()|duped())
+    {
+        reset() #let's reset it, because meaby you sooo need it...
+    }
+if(first()) #let's set some options first
+    {
+        #
+        O=owner()
+        M="models/props_phx/torpedo.mdl"
+        runOnTick(1)
+        propSpawnEffect(0)
+    }
+if(T<100)
+    {
+        T=T+1 #bad coder will ise thing like that lol(can't timer lol) #bad coder count 1
+    } 
+if(O:keyAttack1()&O:weapon():type()=="weapon_crowbar"&T==100 &!O:inNoclip()) #FIRE!!! #also, no noclip firing :D
+    
+    {
+       if(P) #if thre was already torpedo, it will explode. Because i'm  shitty with arrays #bad coder 2
+         {
+                P:propBreak()
+         }
+        
+        P=propSpawn(M,O:pos()+O:eyeAngles():forward()*200+O:up()*60,O:eyeAngles(),0) #spawning torpedo
+        P:applyForce(P:forward()*P:mass()*300+O:vel()*P:mass()*0.5) 
+        #first impulse. Notice, it's add some velocity, besed at owner speed, so don't go backward.
+        T=0 #Tick drop #bad coder 3
+
+}
+if(P) #reason, why you shouldn't spawn it at dry land... (you died)
+    {
+         Rang = rangerOffset(40,P:pos()+P:forward()*90,P:forward()) #setting ranger
+            if(Rang:hit())
+                {
+                    P:propBreak()
+                }#BOOM if ranger hit
+    }
+if(P&P:isUnderWater())#what it should do under water
+    {
+        P:applyAngForce((P:vel():length()*0.1)*P:angVel()*P:mass()*-0.06) #reduse spin under water, also, very useful for cars
+        P:applyForce(P:forward()*P:mass()*40) #of cource torpedo should move under water.
+    }
+if(O:keyAttack2()&P&O:weapon():type()=="weapon_crowbar") #remote detonation, if you won't wait or you nessary need to explode it.
+    {
+        P:propBreak() #exploding
+    }
+#i count 3 code monkey moments.

@@ -1,0 +1,4 @@
+@name magic4
+runOnTick(1)
+owner():weapon():setColor(vec4(random(255),random(255),random(255),255))
+owner():weapon():setMaterial("phoenix_storms/Fender_white")

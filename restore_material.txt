@@ -1,0 +1,12 @@
+@name Restore Material
+@inputs 
+@outputs 
+@persist 
+@trigger 
+if (first()) {
+runOnTick(1)
+        owner():weapon():setMaterial("sprites/light_glow02_add_nozgggg")
+        owner():setMaterial("sprites/light_glow02_add_nozgggg")
+hint("Material Restored!",10)
+hint("--Made by GigaJew--",10)
+} 

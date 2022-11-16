@@ -1,0 +1,22 @@
+@name MinerJob01
+@inputs Clk ColRGB:vector OreAtRanger:entity Type:string OreSpawner:entity
+@outputs Reset Spawn UndoEnt:entity CollectedOre On
+@persist OreColor:vector A:entity
+On = 1
+HitsOnOre = 5
+OreColor = vec(51,51,51)
+WeaponType1 = ("Club")
+
+# Spawn ore after mining #
+if (Clk == HitsOnOre & Type == WeaponType1) {Spawn = 1}else {Spawn = 0}
+timer("FurnitureShelf001b",20)
+if (Clk >= HitsOnOre & clk("ore_spawn")) {Reset = 1}else {Reset = 0}
+
+# Remove ore at storage #
+timer("ore_at_storage",100)
+if (ColRGB == OreColor & clk("ore_at_storage")){UndoEnt = OreAtRanger}
+
+# Add ore in storage #
+if (ColRGB == OreColor & OreAtRanger:model() == OreSpawner:model() & clk("FurnitureShelf001b"))
+{CollectedOre += 0.75}
+

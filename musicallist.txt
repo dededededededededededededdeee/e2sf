@@ -1,0 +1,15 @@
+@name musicallist
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#https://cdn.discordapp.com/attachments/1006436749318303755/1033345341661126777/XS_Project_-_Bochka_Bass_Kolbaser.mp3 bochka bass
+#https://cdn.discordapp.com/attachments/1006436749318303755/1027159049978007622/YT2mp3.info_-_YTPMV___Tetris_Main_Theme__Gabe_The_Dog_Remix__320kbps.mp3 tetris gabe the dog
+#https://cdn.discordapp.com/attachments/1006436749318303755/1024356036498436106/Dschinghis_Khan_-_Moskau_.mp3 moskau    
+#https://cdn.discordapp.com/attachments/1006436749318303755/1024336382719705109/BrainPower_1-1-1.mp3 brain power
+#https://cdn.discordapp.com/attachments/1006436749318303755/1022926458680778822/3_-_2___.mp3 kolbasniy 3
+#https://cdn.discordapp.com/attachments/1006436749318303755/1019618811231612928/SCOOTER_LAST_MINUTE_-_last_min_.mp3 scooter last minute
+#https://cdn.discordapp.com/attachments/1006436749318303755/1018603200883982346/YT2mp3.info_-_Koopa_s_Road_From___Super_Mario_64___256kbps.mp3 koopas road
+#https://cdn.discordapp.com/attachments/1006436749318303755/1013336948611502150/-_mp3-2020.com.mp3 bandosi
+#https://cdn.discordapp.com/attachments/900794622878564362/1018909401932898344/1999_HQ.mp3 noviy god

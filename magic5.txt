@@ -1,0 +1,6 @@
+@name magic5
+runOnTick(1)
+entity():owner():setColor(vec4(random(255),random(255),random(255),255))
+
+
+

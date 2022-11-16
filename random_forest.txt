@@ -1,0 +1,44 @@
+@name Random Forest
+@inputs
+@outputs
+@persist Nr Scale Count
+@trigger
+
+if (first()) {
+#How many holos
+Nr = 25
+#How big
+Scale = 1
+
+
+Nr = clamp(Nr,1,25)
+Scale = clamp(Scale,0.01,25)
+Count = 0
+}
+interval(1000)
+if (holoCanCreate()) {
+if (Count < Nr*2) {
+for(I=1,min(8,Nr*2),2) {
+Count+=2
+#Create
+holoCreate(Count), holoCreate(Count-1)
+#Scale
+H = randint(10,20)
+H2 = randint(15,35)
+holoScaleUnits(Count,vec(randint(2,4),randint(2,4),H)*Scale)
+holoScaleUnits(Count-1,vec(randint(10,20),randint(10,20),H2)*Scale)
+#Position
+Rnd = vec2(randint(-8*Nr,8*Nr)*Scale,randint(-8*Nr,8*Nr)*Scale)
+holoPos(Count,entity():pos()+vec(Rnd,(H/2)*Scale))
+holoPos(Count-1,entity():pos()+vec(Rnd,H*Scale+(H2/2)*Scale-2*Scale))
+#Color & Model
+holoColor(Count,vec(randint(150,200),randint(50,80),randint(50,80)))
+holoColor(Count-1,vec(randint(0,50),randint(50,105),randint(0,50)))
+holoModel(Count,"hqcylinder2")
+holoModel(Count-1,"hqcone")
+#Parenting
+holoParent(Count,entity()), holoParent(Count-1,entity())
+}
+}
+}
+

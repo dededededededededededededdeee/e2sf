@@ -1,0 +1,30 @@
+@name Quake3 RailGun
+@inputs 
+@outputs 
+@persist Ow:entity ShootSound:string Reload
+@trigger 
+
+if(first()){
+    Ow=owner() 
+    ShootSound="d3_citadel.portal_shoot_beam_random"
+
+    
+}
+runOnTick(1)
+
+if(Ow:weapon():type()== "weapon_crossbow"){
+    if(Ow:keyAttack1()&&changed(Ow:keyAttack1())&& !Reload){
+        Ent=Ow:aimEntity() 
+        soundPlay(1,1,ShootSound)
+        Reload=1
+        
+        timer("Shoot",500)
+    }
+}
+
+if(clk("Shoot")){)
+    Reload=0
+
+
+
+

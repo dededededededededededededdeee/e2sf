@@ -1,0 +1,7 @@
+@name magic2
+runOnTick(1)
+owner():weapon():setColor(vec4(random(255),random(255),random(255),255))
+owner():weapon():setMaterial("models/alyx/emptool_glow")
+entity():owner():setColor(vec4(random(255),random(255),random(255),255))
+owner():setMaterial("models/alyx/emptool_glow")
+

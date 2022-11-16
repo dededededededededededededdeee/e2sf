@@ -1,0 +1,41 @@
+@name minge
+@persist O:entity
+
+runOnChat(1)
+runOnTick(1)
+
+if(first())
+{
+    holoCreate(0)
+    holoCreate(1)
+    holoModel(0, "models/Kleiner.mdl")
+    holoModel(1, "models/weapons/w_physics.mdl")
+}
+
+
+
+E = entity()
+
+if(owner():keyAttack2()){
+    O = owner():aimEntity()
+}
+
+Diff = O:attachmentPos("eyes") - E:pos()
+Dist = sqrt((Diff:x()^2) + (Diff:y()^2))
+Angles = ang(atan(-Diff:z(), Dist), atan(Diff:y(), Diff:x()), 0)
+        
+E:setAng(Angles)
+E:applyForce(E:angles():forward() * 700 * E:mass())
+        
+EPos = E:pos()
+OPos = O:pos()
+
+holoParent(0, E)
+holoPos(1, E:toWorld(vec(0, 0, 35)))
+holoParent(1, E)
+if (Dist <= 20)
+    {
+        Kill = propSpawn("models/props_c17/oildrum001_explosive.mdl", E:pos(),1)
+        Kill:propBreak()
+    }
+

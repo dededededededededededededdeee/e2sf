@@ -1,0 +1,31 @@
+@name russia
+@persist Ang
+interval(1)
+Ang++
+holoCreate(1)
+holoPos(1,entity():pos()+entity():up()*500)
+holoAng(1,entity():eyeAngles())
+holoAng(1,entity():eyeAngles()+ang(0,Ang,0))
+holoColor(1,vec4(255,0,0,255))
+holoScale(1,vec(3,10,13))
+holoModel(1,"models/hunter/blocks/cube4x6x1.mdl")
+holoMaterial(1,"models/debug/debugwhite")
+############################################################ blue
+holoCreate(2)
+holoPos(2,entity():pos()+entity():up()*1100)
+holoAng(2,entity():eyeAngles())
+holoAng(2,entity():eyeAngles()+ang(0,Ang,0))
+holoColor(2,vec4(0,0,255,255))
+holoScale(2,vec(3,10,13))
+holoModel(2,"models/hunter/blocks/cube4x6x1.mdl")
+holoMaterial(2,"models/debug/debugwhite")
+############################################################ white
+ 
+holoCreate(3)
+holoPos(3,entity():pos()+entity():up()*1700)
+holoAng(3,entity():eyeAngles())
+holoAng(3,entity():eyeAngles()+ang(0,Ang,0))
+holoColor(3,vec4(255,255,255,255))
+holoScale(3,vec(3,10,13))
+holoModel(3,"models/hunter/blocks/cube4x6x1.mdl")
+holoMaterial(3,"models/debug/debugwhite")

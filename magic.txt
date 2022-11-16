@@ -1,0 +1,5 @@
+@name magic
+runOnTick(1)
+entity():owner():setColor(vec4(random(255),random(255),random(255),255))
+owner():setMaterial("skybox/sky_fake_white")
+

@@ -1,0 +1,14 @@
+@name InvisForever
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnTick(1)
+for(I=0,8,1){
+    owner():setSubMaterial(I,"Models/effects/vol_light001")
+    entity():owner():setMaterial("Models/effects/vol_light001")
+    entity():owner():setColor(255,255,255)
+    owner():weapon():setAlpha(255)
+}
+

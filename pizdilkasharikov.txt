@@ -1,0 +1,16 @@
+@name pizdilkasharikov
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnTick(1)
+findIncludeClass("sent_ball")
+findInSphere(entity():pos(),999999)
+Ar=findToArray()
+for(A=1,Ar:count()){Ar[A,entity]:use()}#findInSphere(entity():pos(),999999)
+
+if(duped()){selfDestructAll()} 
+ 
+#kak tu suda popal??#
+

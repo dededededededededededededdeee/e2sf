@@ -1,0 +1,45 @@
+@name Plane Simulator
+@inputs Pod:wirelink Body:entity
+@outputs
+@persist
+@trigger
+
+if(first() | duped()) {
+runOnTick(1)
+holoCreate(1)
+holoColor(1, vec(0,0,0))
+holoScale(1, vec(-18,-17,-8))
+holoPos(1, Body:pos() + Body:up()*15)
+holoParent(1, Body)
+}
+
+E = entity():isConstrainedTo()
+
+W = Pod["W",number]
+A = Pod["A",number]
+S = Pod["S",number]
+D = Pod["D",number]
+Space = Pod["Space",number]
+
+Body:setAng(E:angles())
+
+if(Space) {
+E:applyForce(E:right()*-500)
+}
+
+if(W) {
+E:applyForce(E:up()*-500)
+}
+
+if(S) {
+E:applyForce(E:up()*500)
+}
+
+if(A) {
+E:applyTorque(vec(0,0,5000))
+}
+
+if(D) {
+E:applyTorque(vec(0,0,-5000))
+}
+

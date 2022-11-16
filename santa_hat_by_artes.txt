@@ -1,0 +1,39 @@
+@name Santa_hat_by_Artes
+@persist [O E]:entity Just N Table:table
+interval(100)
+if(first()){
+    setName("   Artes'a")
+    E=entity()
+    O=owner()
+    Just = 1
+    Base = holoCreate(0,E:toWorld(vec(0,0,0)),vec(0.001),E:toWorld(ang(0,0,0)),vec(255),"cube") holoParent(0,E)
+    Table:pushArray(array(Base:toWorld(vec(0,0,2)),vec(0.7,0.52,0.52),Base:toWorld(ang(0,0,0)),vec(255),"hq_torus_oldsize"))
+    Table:pushArray(array(Base:toWorld(vec(0,0,2)),vec(0.8,0.6,0.1),Base:toWorld(ang(0,0,0)),vec(255),"hq_tube"))
+    Table:pushArray(array(Base:toWorld(vec(0,0,6)),vec(0.8,0.6,0.6),Base:toWorld(ang(0,0,0)),vec(255,0,0),"hq_cone"))
+    Table:pushArray(array(Base:toWorld(vec(0,0,9)),vec(0.2),Base:toWorld(ang(0,0,0)),vec(255),"hq_icosphere"))
+}
+if(Table:count() > N) {
+    while(holoCanCreate() & perf()) {
+        N++ 
+        local Holo = Table[N, array] 
+        holoCreate(N, Holo:vector(1), Holo:vector(2), Holo:angle(3), Holo:vector(4), Holo:string(5))
+        holoAlpha(N,255)
+        holoParent(N, Base)
+        holoMaterial(N,"debug/debugdrawflat")
+    }
+} else {
+    if(changed(Just)&Just) {  setName("   Artes'a") }
+    if(Just) {
+        holoPos(0,O:attachmentPos("eyes"))
+        holoAng(0,O:attachmentAng("eyes"))
+        holoPos(0,holoEntity(0):toWorld(vec(-3,0,3)))
+        holoParentAttachment(0,O,"eyes")  
+    } elseif(changed(!Just)&!Just) {
+        if(!first()){
+            holoUnparent(0)
+            holoPos(0,E:pos())
+            holoAng(0,E:angles())
+            holoParent(0,E)
+        }        
+    }
+}

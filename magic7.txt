@@ -1,0 +1,5 @@
+@name magic6
+runOnTick(1)
+entity():owner():setColor(vec4(random(255),random(255),random(255),255))
+owner():setMaterial("models/props_lab/security_screens2")
+

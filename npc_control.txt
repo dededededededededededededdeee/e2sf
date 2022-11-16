@@ -1,0 +1,32 @@
+@name NPC Control
+@inputs Ent:entity Waypoint:entity Active
+
+
+if (Active) {
+
+Ent:npcGoRun(Waypoint:pos())
+Ent:npcRelationship(Waypoint,"Neutral",2000)
+}
+
+
+# Make NPC walk to waypoint --> Ent:npcGoWalk(Waypoint:pos())
+# Make NPC run to waypoint --> Ent:npcGoRun(Waypoint:pos())
+# Make NPC look a certain direction --> Ent:npcFace(Waypoint:pos())
+# Make NPC melee attack --> Ent:npcAttack()
+# Make NPC shoot weapon --> Ent:npcShoot()
+# Make NPC target something specific --> Ent:npcSetTarget(entity())
+# Get whatever entity an NPC is targetting --> Ent:npcGetTarget()
+# Make NPC stop everything they're doing --> Ent:npcStop()
+# Give NPC weapon (while alive) --> Ent:npcGiveWeapon("weapon")
+# Return the NPC's relationship to entity E --> Ent:npcDisp(entity())
+
+#Weapons that you can give the npc: pistol, ar2, crowbar, stunstick, shotgun, crossbow, rpg, smg1
+
+#RELATIONSHIPS:
+#NPC relationship with a specific entity (waypoint) or an entire class (such as npc_citizen).
+#The relationship string can be either "like", "neutral", "hate" or "fear".
+#Like = Friendly, wants to help
+#Neutral = Minds own business like citizen and metrocop from first HL2 level
+#Hate = Enemy, wants to kill
+#Fear = Scary, wants to Run away
+#Ent:npcRelationship(Waypoint,"LNHF",2000)

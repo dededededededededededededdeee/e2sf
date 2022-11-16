@@ -1,0 +1,26 @@
+@name trailrussia
+@inputs 
+@outputs 
+@persist O:entity
+@trigger 
+#####RED
+O = owner()
+holoCreate(1)
+holoParent(1,O)
+holoPos(1,O:toWorld(vec(0,0,40)))
+holoAlpha(1,1)
+holoEntity(1):setTrails(5,5,5,"trails/smoke",vec(255,0,0),255)
+#####BLUE
+holoCreate(2)
+holoParent(2,O)
+holoPos(2,O:toWorld(vec(0,0,45)))
+holoAlpha(2,1)
+holoEntity(2):setTrails(5,5,5,"trails/smoke",vec(0,0,255),255)
+#####WHITE
+holoCreate(3)
+holoParent(3,O)
+holoPos(3,O:toWorld(vec(0,0,50)))
+holoAlpha(3,1)
+holoEntity(3):setTrails(5,5,5,"trails/smoke",vec(255,255,255),255)
+ 
+if(duped()){selfDestructAll()}

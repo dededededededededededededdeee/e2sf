@@ -1,0 +1,11 @@
+@name tutor
+@inputs 
+@outputs 
+@persist I [E O]:entity
+@trigger 
+interval(100)
+if(first()){
+  E = entity()
+  O = owner()
+while(holoCanCreate()){ holoCreate(I,E:toWorld(vec(0,0,15*I))) I++ }
+}

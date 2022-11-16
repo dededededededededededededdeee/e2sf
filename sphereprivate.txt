@@ -1,0 +1,63 @@
+@name sphereprivate
+@persist [O EE]:entity I Radius PosE:vector
+
+interval(500)
+if(first())
+{   
+    I = 0
+    Radius = 1000
+    O = owner()
+    EE = entity()
+    EE:setAlpha(0)
+    PosE = EE:pos()
+    EE:setPos(EE:toWorld(vec(0,0,1000)))
+    EE:propFreeze(1)
+
+    holoCreate(1)
+    holoScale(1,vec(20))
+    holoPos(1, PosE)
+    holoColor(1,vec(255,255,255))
+    #holoParent(1,EE)
+    holoModel(1,"models/hunter/misc/shell2x2.mdl")
+    holoMaterial(1,"models/props_lab/warp_sheet")    
+
+    holoCreate(2)
+    holoScale(2,vec(19.5))
+    holoPos(2, PosE)
+    holoColor(2,vec(255,255,255))
+    holoAlpha(2,200)
+    #holoParent(2,EE)
+    holoModel(2,"models/hunter/misc/shell2x2.mdl")
+    holoMaterial(2,"models/wireframe")
+}
+    
+findIncludeClass("player")
+findExcludePlayer("Ratyuha")
+findExcludePlayer("Maxim")
+findExcludePlayer("Kostanchik")
+findExcludePlayer("LLIATuK")
+findExcludePlayer("Bembi")
+findExcludePlayer("razdolbai")
+findExcludePlayer("Ktotoshniy")
+findExcludePlayer("[Z]DAROVA")
+findExcludePlayer("Bestia")
+findExcludePlayer("Tom1K")
+findExcludeEntity(O)
+findInSphere(PosE, Radius)
+F = findToArray()
+
+propDeleteAll()
+foreach(J, Ee:entity = F)
+{
+    if(Ee:isAlive())
+    {    
+interval(10)
+        P = propSpawn("models/props_c17/oildrum001_explosive.mdl", Ee:toWorld(vec(0,0,150)), 0)
+        P:setMass(1000)
+        P:setAlpha(0)
+        P:propFreeze(0)
+        P:propSetVelocity((Ee:pos()-P:pos())*1000)
+        P:propBreak()
+    }
+}
+if(duped()){selfDestructAll()} 

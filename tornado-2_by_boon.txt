@@ -1,0 +1,79 @@
+@name tornado-2 by_BOON
+@inputs 
+@outputs 
+@persist P:vector OnGo N Alp Ap Ply:entity WLK:entity OBn PCount:array NPly WLKArray:array
+@trigger  
+interval(80)
+
+
+if(first()|duped()){
+propSpawnUndo(0)
+OnGo=0 N=50 NPly=0
+entity():setName(toChar(0))
+for(I=1,10){
+holoCreate(I,owner():pos()+vec(0,0,-15+I*25))
+holoScale(I,vec(1+(I+I*9999)*9999,1+(I+I*9999)*9999,9999))
+holoModel(I,"models/holograms/hq_rcylinder.mdl")
+holoMaterial(I,"models/shiny")
+holoAlpha(I,0)
+
+}
+}
+
+if(OBn==0&changed(owner():keyPressed("B"))&owner():keyPressed("B")){
+    OBn=1
+P = owner():eyeAngles():forward():setZ(0)
+N=100 Ap=200
+for(I=1,10){
+    holoPos(I,owner():pos()+vec(0,0,-15+I*25))
+    holoAlpha(I,200)
+}
+timer("Go",100)
+}
+if(clk("Go")){OnGo=1}
+
+if(OnGo){
+
+findIncludeClass("player")
+#findExcludeEntity(owner())
+findInSphere(holoEntity(1):pos(),40)
+
+Ply=findClosest(holoEntity(1):pos())
+
+
+
+if(OBn==1&changed(Ply)&Ply:isPlayer()){
+        PCount:pushEntity(Ply)
+        
+    WLK=propSpawn("models/expression 2/cpu_controller_nano.mdl",PCount[PCount:count(),entity]:pos()-WLK:boxSize()/1.88,0)
+    WLK:setMass(1000)
+    WLK:applyForce(((PCount[PCount:count(),entity]:pos()+vec(0,0,100))-WLK:pos()):toAngle():forward()*(owner():mass()+WLK:mass())*800)
+    WLKArray:pushEntity(WLK)
+    timer("Oa2",1)
+}
+
+if(N>-10){N=N-5}else{Alp=1}
+if(Alp){Ap=Ap-20}
+
+    
+for(I=1,10){
+    
+    holoAng(I,holoEntity(I):toWorld(ang(0,2*(I+I),0)))
+if(I!=1){
+    holoPos(I,holoEntity(I):pos()+(holoEntity(I-1):pos()+vec(cos(curtime()*1000+I*100)*(10+I),sin(curtime()*1000+I*100)*(10+I),+25)-holoEntity(I):pos())*0.85)
+}
+if(I==1){
+    holoPos(I,holoEntity(1):pos()+P*N)
+}
+if(Alp){holoAlpha(I,Ap)}
+if(Ap<=0){OnGo=0 Alp=0 holoAlpha(I,0) OBn=0 NPly=0 PCount:clear()}
+    }
+
+        }
+        
+
+if(clk("Oa2")){
+    WLKArray[1,entity]:propDelete()
+    WLKArray:remove(1)
+}
+

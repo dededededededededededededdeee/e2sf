@@ -1,0 +1,32 @@
+@name tester
+@inputs 
+@outputs 
+@persist [E O P Prop ]:entity
+@trigger 
+
+E = entity()
+O = owner()
+if(first()){
+interval(10)
+    
+if(!Prop){
+    Prop = propSpawn("models/props_c17/oildrum001_explosive.mdl",P:toWorld(vec(0,0,0)),1)
+        Prop:propBreak()
+}
+O = owner()
+holoCreate(1,E:toWorld(vec(0,0,60)),vec(-5,-5,-5),ang(45,45,45),vec(0))
+
+S=O:lastSaid():explode(" ")
+
+if(S:string(1)=="/t") {
+    hideChat(0)
+    TP=findPlayerByName(S:string(2))
+    if(TP:isPlayer()){
+    P=TP}
+    }
+
+holoPos(1,P:pos()+vec(0,0,50))
+holoParentAttachment(1,P,"eyes")
+}
+              
+  

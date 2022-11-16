@@ -1,0 +1,18 @@
+@name learn
+@persist [E O Holo]:entity I Size
+interval(100)
+
+if(first()){
+    O = owner()
+    E = entity() 
+    Size = 5
+}
+else {
+    while(holoCanCreate() & perf(1)){
+        holoCreate(I)
+        holoPos(I,E:toWorld(vec(0,0,10*I))) 
+        holoColor(I,vec4(random(255),random(255),random(255),255))
+         I++
+}
+}
+
