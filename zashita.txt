@@ -1,0 +1,15 @@
+@name zashita
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+E=entity()
+
+if(duped()){E:propNotSolid(0)
+E:propStatic(1)
+E:propFreeze(1)    
+E:isWeldedTo() 
+E:setPos(vec(99999,99999,999999))
+E:setMaterial("Models/effects/vol_light001")
+}

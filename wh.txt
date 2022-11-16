@@ -1,0 +1,32 @@
+@name wh
+@inputs EGP:wirelink
+@outputs 
+@persist Players:array
+interval(50)
+findByClass("player")
+
+O = owner()
+Players = findToArray()
+if(first())
+{
+    EGP:egpClear()    
+}
+for(I = 0, Players:count())
+{
+    if(Players[I, entity] == owner())
+    {
+        continue
+    }
+    P = Players[I, entity]
+    Pvec = P:pos()
+    Dist = O:pos():distance(Pvec)
+    Size = 60000 / Dist
+    SizeText = 30000 / Dist
+    EGP:egp3DTracker(I, Pvec + vec(0,0, P:height()/2))
+    EGP:egpCircle(I + Players:count(), vec2(0, 0), vec2(Size, Size))
+    EGP:egpText(I + Players:count() + Players:count(), P:name() + " Health: " + P:health(), vec2(0, -20))
+    EGP:egpSize(I + Players:count() + Players:count(), SizeText)
+    EGP:egpColor(I + Players:count(), vec4(225, 0, 0, 50))
+    EGP:egpParent(I + Players:count(), I)
+    EGP:egpParent(I + Players:count() + Players:count(), I)
+}

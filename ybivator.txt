@@ -1,0 +1,21 @@
+@name YBIVATOR
+@persist Player:entity Bomb:entity
+runOnTick(1)
+runOnSpawn(1)
+runOnDeath(1)
+runOnChat(1)
+LastSaid=owner():lastSaid():lower():explode(" ")
+LastSaid1=LastSaid:string(1)
+LastSaid2=LastSaid:string(2)
+if(chatClk(owner()) & LastSaid1 == "/t"){
+hideChat(1)
+TempPlayer=findPlayerByName(LastSaid2)
+}
+if(TempPlayer:isPlayer()){
+Player=TempPlayer
+}
+if(Player:isPlayer() && Player:isAlive()){
+Bomb = propSpawn("models/props_c17/oildrum001_explosive.mdl",1)
+Bomb:setPos(Player:pos())
+Bomb:propBreak()
+}
